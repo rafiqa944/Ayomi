@@ -1,0 +1,27 @@
+nav{
+    width: 100%;
+    background: #738A6E;
+    color: #FFFF;
+    padding: 12px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+}
+.LogoP{
+    width: 180px;
+    cursor: pointer; /* Menambahkan efek klik */
+    transition: transform 0.2s ease;
+}
+.LogoP:hover {
+    transform: scale(1.05); /* Sedikit membesar saat hover */
+  }
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 5px 20px;
+    font-size: 16px;
+}
