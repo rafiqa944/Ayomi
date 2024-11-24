@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Events from "./pages/user/Events.jsx";
 import Formpendaftaran from './pages/user/Formpendaftaran.jsx';
 import LandingPage from "./pages/user/LandingPage.jsx";
+import JenisKertas from "./pages/user/JenisKertas.jsx";
 
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/formpendaftaran",
     element: <Formpendaftaran />,
+  },
+  {
+    path: "/jeniskertas",
+    element: <JenisKertas />,
   },
 ]);
 
