@@ -7,6 +7,7 @@ import Events from "./pages/user/Events.jsx";
 import Formpendaftaran from './pages/user/Formpendaftaran.jsx';
 import LandingPage from "./pages/user/LandingPage.jsx";
 import JenisKertas from "./pages/user/JenisKertas.jsx";
+import JenisPlastik from "./pages/user/JenisPlastik.jsx";
 
 
 const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/jeniskertas",
     element: <JenisKertas />,
+  },
+  {
+    path: "/jenisplastik",
+    element: <JenisPlastik />,
   },
 ]);
 
