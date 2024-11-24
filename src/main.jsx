@@ -4,7 +4,6 @@ import './index.css';
 import App from './App.jsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Events from "./pages/user/Events.jsx";
-import Footer from './Components/Footer';  
 import Formpendaftaran from './pages/user/Formpendaftaran.jsx';
 
 
@@ -17,12 +16,6 @@ const router = createBrowserRouter([
     path: "/events",
     element: <Events />,
   },
-
-  {
-    path: "/footer",
-    element: <Footer />,
-  },
-
   {
     path: "/formpendaftaran",
     element: <Formpendaftaran />,
@@ -33,4 +26,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
-);
+)

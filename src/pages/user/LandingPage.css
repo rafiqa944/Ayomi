@@ -1,0 +1,61 @@
+.landingpage {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Memusatkan konten secara horizontal */
+    justify-content: flex-start; /* Pastikan posisi konten mulai dari atas */
+    min-height: 100vh; /* Memastikan halaman memenuhi seluruh tinggi layar */
+}
+ 
+.gallery {
+    display: flex;
+    flex-direction: column; /* Memastikan teks berada di atas gambar */
+    align-items: center; /* Memusatkan gambar secara horizontal */
+    gap: 20px; /* Jarak antar gambar */
+    padding: 20px;
+    margin-top: 30px; /* Jarak antara gallery dan bagian atas */
+    width: 100%; /* Menggunakan lebar penuh */
+    text-align: center; /* Memusatkan teks dan gambar dalam kontainer */
+}
+
+.gallery-blur {
+    position: absolute; /* Menempatkan elemen di belakang */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(52, 76, 61, 0.8), rgba(52, 76, 61, 0)); /* Warna hijau dengan transparansi */
+    filter: blur(10px); /* Memberikan efek blur */
+    z-index: -1; /* Menempatkan elemen di belakang konten utama */
+    border-radius: 20px; /* Membuat sudut melengkung */
+}
+
+.gallery h1 {
+    font-size: 32px; /* Mengatur ukuran font judul */
+    font-weight: bold; /* Membuat teks menjadi tebal */
+    color: #344C3D; /* Mengatur warna font menjadi #344C3D */
+}
+.gallery h3 {
+    font-weight: bold; /* Mengatur teks agar tidak tebal */
+    color: #344C3D; /* Warna teks */
+    margin-top: 10px; /* Menambahkan jarak ke bawah dari elemen sebelumnya */
+    font-size: 18px; /* Sesuaikan ukuran font jika diperlukan */
+}
+.gallery-content {
+    display: flex; /* Membuat gambar berjejer secara horizontal */
+    justify-content: center; /* Memusatkan gambar */
+    gap: 20px; /* Menambahkan jarak antar gambar */
+}
+
+.gallery-item {
+    max-width: 400px; /* Membatasi ukuran maksimal gambar */
+    width: 100%; /* Membuat gambar menyesuaikan lebar kontainer */
+    height: auto; /* Menjaga proporsi gambar */
+    border-radius: 10px; /* Rounded corners pada gambar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Efek bayangan untuk gambar */
+    transition: transform 0.3s ease-in-out; /* Efek saat hover */
+}
+
+.gallery-item:hover {
+    transform: scale(1.1); /* Memperbesar gambar saat di-hover */
+}

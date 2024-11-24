@@ -1,4 +1,4 @@
-nav{
+nav {
     width: 100%;
     background: #738A6E;
     color: #FFFF;
@@ -10,18 +10,58 @@ nav{
     align-items: center;
     justify-content: space-between;
     z-index: 10;
-}
-.LogoP{
+  }
+  
+  .LogoP {
     width: 180px;
     cursor: pointer; /* Menambahkan efek klik */
     transition: transform 0.2s ease;
-}
-.LogoP:hover {
+  }
+  
+  .LogoP:hover {
     transform: scale(1.05); /* Sedikit membesar saat hover */
   }
-nav ul li{
+  
+  /* Styling untuk menu list */
+  nav ul li {
     display: inline-block;
     list-style: none;
     margin: 5px 20px;
     font-size: 16px;
-}
+  }
+  
+  /* Styling untuk Link pada navbar */
+  nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 5px 10px;
+    transition: font-weight 0.3s ease;
+  }
+  
+  /* Efek hover pada link */
+  nav ul li a:hover {
+    font-weight: bold; /* Menambahkan efek bold saat hover */
+    border-radius: 5px; /* Membuat sudut rounded */
+  }
+  
+  /* Efek saat link ditekan (active state) */
+  nav ul li a:active {
+    background-color: #4a5d3b; /* Warna latar belakang saat ditekan */
+    transform: scale(0.98); /* Efek mengecilkan saat tombol ditekan */
+  }
+  
+  /* Styling untuk button Donasi */
+  .btn {
+    background-color: #344C3D; /* Warna latar belakang tombol */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Efek hover pada tombol Donasi */
+  .btn:hover {
+    transform: scale(1.03); /* Sedikit membesar saat hover */
+  }
+   
