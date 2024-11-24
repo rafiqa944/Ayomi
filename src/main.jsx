@@ -5,12 +5,17 @@ import App from './App.jsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Events from "./pages/user/Events.jsx";
 import Formpendaftaran from './pages/user/Formpendaftaran.jsx';
+import LandingPage from "./pages/user/LandingPage.jsx";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/landingpage",
+    element: <LandingPage/>,
   },
   {
     path: "/events",
