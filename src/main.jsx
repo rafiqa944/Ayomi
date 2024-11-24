@@ -11,6 +11,7 @@ import JenisPlastik from "./pages/user/JenisPlastik.jsx";
 import JenisAluminium from "./pages/user/JenisAluminium.jsx";
 import JenisBesiLogam from "./pages/user/JenisBesiLogam.jsx";
 import JenisElektronik from "./pages/user/JenisElektronik.jsx";
+import JenisBotolKaca from "./pages/user/JenisBotolKaca.jsx";
 
 
 const router = createBrowserRouter([
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: "/jeniselektronik",
     element: <JenisElektronik />,
+  },
+  {
+    path: "/jenisbotolkaca",
+    element: <JenisBotolKaca />,
   },
 ]);
 

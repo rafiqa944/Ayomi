@@ -14,7 +14,7 @@ import Navbar from '../../Components/Navbar';
 import Footer from '../../Components/Footer';
 
 
-const JenisBesiLogam = () => {
+const JenisElektronik = () => {
   return (
     <div>
     <Navbar/>
@@ -67,6 +67,6 @@ const JenisBesiLogam = () => {
 };
 
 
-export default JenisBesiLogam;
+export default JenisElektronik;
 
 
