@@ -9,11 +9,11 @@ import Navbar from '../../Components/Navbar';
 import Footer from '../../Components/Footer';
 
 
-const JenisKertas = () => {
+const JenisAluminium = () => {
   return (
     <div>
     <Navbar/>
-      <h1>Jenis - Jenis Kertas</h1>
+      <h1>Jenis - Jenis Aluminium</h1>
       <div className="image-grid">
         <div className="image-container">
           <img src={image1} alt="Gambar 1" />
@@ -42,6 +42,6 @@ const JenisKertas = () => {
 };
 
 
-export default JenisKertas;
+export default JenisAluminium;
 
 

@@ -9,7 +9,7 @@ h1 {
 .image-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 kolom */
-    gap: 18px; /* Jarak antar gambar */
+    gap: 2px; /* Jarak antar gambar */
     padding: 10px;
   }
  
