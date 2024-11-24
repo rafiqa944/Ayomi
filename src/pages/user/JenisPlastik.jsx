@@ -1,5 +1,5 @@
 import React from 'react';
-import './JenisPlastik.css';
+import './StyleAllJenis.css';
 import image1 from '../../assets/foto/gelasplastik.png';
 import image2 from '../../assets/foto/botolbirumuda.png';
 import image3 from '../../assets/foto/botolwarna.png';

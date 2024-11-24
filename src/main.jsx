@@ -8,6 +8,7 @@ import Formpendaftaran from './pages/user/Formpendaftaran.jsx';
 import LandingPage from "./pages/user/LandingPage.jsx";
 import JenisKertas from "./pages/user/JenisKertas.jsx";
 import JenisPlastik from "./pages/user/JenisPlastik.jsx";
+import JenisAluminium from "./pages/user/JenisAluminium.jsx";
 
 
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/jenisplastik",
     element: <JenisPlastik />,
+  },
+  {
+    path: "/jenisaluminium",
+    element: <JenisAluminium />,
   },
 ]);
 
