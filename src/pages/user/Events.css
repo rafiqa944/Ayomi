@@ -1,0 +1,130 @@
+/* Kontainer untuk teks dan gambar */
+.ayoo {
+    display: flex; /* Menggunakan flexbox agar teks dan gambar berada dalam satu baris */
+    gap: 10px; /* Memberikan jarak antara gambar dan teks */
+    padding-top: 90px; /* Memberikan jarak antara konten dan bagian atas */
+    justify-content: center; /* Menyelaraskan elemen secara horizontal ke tengah */
+    align-items: center; /* Menyelaraskan elemen secara vertikal ke tengah */
+    text-align: center; /* Menyelaraskan teks ke tengah */
+    position: relative;
+}
+
+/* Gaya untuk teks h2 */
+h2 {
+    color: #344C3D; /* Warna font hijau tua */
+    font-family: 'Montserrat', sans-serif; /* Font Montserrat */
+    font-size: 30px; /* Ukuran font */
+    font-weight: 600 !important; /* Menggunakan bobot font yang lebih tebal */
+    text-align: center; /* Menyelaraskan teks ke tengah */
+    margin: 0; /* Menghilangkan margin default */
+}
+
+/* Gaya untuk gambar */
+.ayomtrash {
+    max-width: 100px; /* Menentukan ukuran gambar agar tidak terlalu besar */
+    height: auto; /* Menjaga aspek rasio gambar */
+    border-radius: 8px; /* Memberikan sudut melengkung pada gambar */
+    padding-top: 20px;
+}
+
+/* Tombol Undo */
+.undo-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    margin-left: 50px; /* Jarak dari sisi kiri */
+    background: none; /* Tidak ada background untuk transparansi */
+    border: none; /* Menghapus border default */
+    padding: 10px; /* Memberikan ruang klik yang cukup */
+    position: fixed; /* Memastikan tombol berada di posisi tetap */
+    left: 0; /* Menempel di kiri layar */
+    top: 18%; /* Sejajar vertikal di posisi yang diinginkan */
+    transform: translateY(-20%); /* Mengatur agar tombol sejajar dengan baik */
+    z-index: 1000; /* Memastikan tombol berada di atas elemen lain */
+}
+
+/* Ikon Undo */
+.undo-icon {
+    width: 24px; /* Ukuran ikon */
+    height: 24px;
+    pointer-events: none; /* Ikon hanya dekorasi, klik pada tombol */
+}
+
+.undo-button:hover {
+    opacity: 0.8; /* Efek hover untuk tombol */
+}
+
+/* Kontainer untuk gambar */
+.foto {
+    display: flex; /* Menggunakan Flexbox untuk layout */
+    flex-direction: column; /* Menyusun gambar secara vertikal */
+    gap: 20px; /* Memberikan jarak antara gambar */
+    align-items: center; /* Memastikan gambar sejajar di tengah */
+    padding-top: 50px; /* Menambahkan sedikit padding di sekitar gambar */
+    padding-bottom: 50px;
+}
+
+/* Gaya untuk masing-masing gambar */
+.foto-events {
+    width: 500px; /* Menjaga gambar agar tidak melebihi lebar kontainer */
+    height: auto; /* Menjaga aspek rasio gambar secara otomatis */
+    border-radius: 30px; /* Menambahkan sudut melengkung pada gambar */
+    object-fit: cover; /* Memastikan gambar terlihat rapi */
+}
+
+/* Kontainer untuk gambar dan paragraf */
+.text-paragraf-container {
+    display: grid; /* Menggunakan grid untuk memisahkan elemen */
+    grid-template-columns: auto auto; /* Dua kolom: satu untuk gambar, satu untuk teks */
+    gap: 20px; /* Memberikan jarak antar elemen */
+    align-items: center; /* Menyelaraskan elemen secara vertikal */
+    margin-bottom: 20px; /* Memberikan jarak antar kontainer */
+    justify-content: center; /* Menyelaraskan seluruh kontainer di tengah halaman */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+
+/* Gaya untuk paragraf */
+.text-paragraf {
+    max-width: 600px; /* Membatasi lebar paragraf agar tidak terlalu panjang */
+    font-size: 16px; /* Ukuran font untuk paragraf */
+    line-height: 1.6; /* Spasi antar baris paragraf */
+    text-align: justify; /* Meratakan teks kiri dan kanan */
+    color: #333; /* Warna teks */
+    margin-bottom: 35px;
+}
+
+/* Gaya untuk h2 dalam text-paragraf */
+.text-paragraf h2 {
+    font-size: 22px; /* Ukuran font yang cukup besar untuk heading */
+    font-family: 'Montserrat', sans-serif; /* Font yang sama untuk konsistensi */
+    font-weight: 700; /* Membuat teks lebih tebal agar menonjol */
+    color: #344C3D; /* Warna hijau tua, sesuai tema */
+    margin-bottom: 10px; /* Memberikan jarak antara h2 dan paragraf di bawahnya */
+    text-align: left; /* Menyelaraskan teks ke kiri untuk heading */
+    line-height: 1.4; /* Spasi antar baris agar lebih nyaman dibaca */
+}
+
+.action-button {
+    background-color: #344C3D;
+    color: #fff;
+    padding: 15px 20px;
+    margin-top: 10px;
+    text-align: justify;
+    font-size: 12px;
+    border-radius: 15px;
+    border: none;
+    margin-right: 460px; /* Atur sesuai kebutuhan */
+  }
+
+/* Menghindari posisi paragraf memengaruhi gambar */
+.text-paragraf-container > .foto-events {
+    grid-column: 1; /* Gambar tetap berada di kolom pertama */
+}
+.text-paragraf-container > .text-paragraf {
+    grid-column: 2; /* Paragraf berada di kolom kedua */
+}
+

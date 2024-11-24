@@ -1,7 +1,6 @@
 import React from 'react'
 import LandingPage from './pages/user/LandingPage'
-import Footer from './Components/Footer'
-
+import Footer from './Components/Footer';  // Jika foldernya bernama 'Components'
 
 const App = () => {
   return (
@@ -12,4 +11,5 @@ const App = () => {
   )
 }
 
-export default App
+
+export default App;
