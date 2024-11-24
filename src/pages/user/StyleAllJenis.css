@@ -5,6 +5,13 @@ h1 {
     font-size: 2em; /* Opsional, menyesuaikan ukuran */
   }  
 
+  h4 {
+    text-align: center; /* Pusatkan teks secara horizontal */
+    margin-top: 20px; /* Tambahkan jarak ke atas dari h1 */
+    font-size: 1.2em; /* Ukuran font opsional */
+    font-weight: normal; /* Pastikan teks tidak tebal */
+    color: #000000; /* Warna teks opsional */
+}
 
 .image-grid {
     display: grid;
