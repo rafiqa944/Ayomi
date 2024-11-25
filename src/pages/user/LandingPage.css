@@ -1,5 +1,4 @@
 .landingpage {
-    font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center; /* Memusatkan konten secara horizontal */
@@ -16,18 +15,6 @@
     margin-top: 30px; /* Jarak antara gallery dan bagian atas */
     width: 100%; /* Menggunakan lebar penuh */
     text-align: center; /* Memusatkan teks dan gambar dalam kontainer */
-}
-
-.gallery-blur {
-    position: absolute; /* Menempatkan elemen di belakang */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, rgba(52, 76, 61, 0.8), rgba(52, 76, 61, 0)); /* Warna hijau dengan transparansi */
-    filter: blur(10px); /* Memberikan efek blur */
-    z-index: -1; /* Menempatkan elemen di belakang konten utama */
-    border-radius: 20px; /* Membuat sudut melengkung */
 }
 
 .gallery h1 {
@@ -58,4 +45,99 @@
 
 .gallery-item:hover {
     transform: scale(1.1); /* Memperbesar gambar saat di-hover */
+}
+.gallery-item2 {
+    width: 100%; /* Gambar memenuhi lebar kontainer */
+    height: auto; /* Menjaga proporsi gambar */
+    border-bottom: 5px; 
+    display: block;
+    
+
+}
+.gallery-item2-wrapper {
+    position: relative; /* Membuat elemen anak bisa diatur posisinya relatif ke kontainer ini */
+    display: inline-block; /* Mengatur elemen agar tidak menggunakan 100% width */
+    max-width: 350px; /* Ukuran maksimal kontainer */
+    width: 100%; /* Gambar responsif */
+    border-radius: 24px; /* Membuat sudut melengkung pada kontainer */
+    overflow: hidden; /* Menyembunyikan elemen di luar radius */
+    text-align: center; /* Teks di tengah */
+    
+  }
+
+  .gallery-item2-title {
+    padding: 20px 0; /* Jarak dalam elemen teks */
+    font-size: 1rem; /* Ukuran font */
+    font-weight: bold; /* Menebalkan teks */
+    color: #FFFF; /* Warna teks */
+    background-color: #738A6E; /* Warna hijau sesuai desain */
+    border-radius: 0 0 24px 24px; /* Membuat sudut bawah melengkung */
+    
+  }
+
+/* Tambahkan aturan untuk tata letak baris kedua gambar */
+.gallery .gallery-item2 + .gallery-item2 {
+    margin-right: 200px; 
+}
+/* Atur agar semua gambar memiliki tata letak sejajar */
+.gallery > div:last-child {
+    display: flex; /* Buat gambar berada dalam baris horizontal */
+    justify-content: flex-end;
+    align-items: center; /* Memastikan gambar sejajar vertikal */
+    gap: 20px; /* Jarak antar gambar lebih konsisten */
+    margin-top: 20px;
+    
+}
+
+@media (max-width: 768px) {
+.gallery > div:last-child {
+        display: flex;
+        justify-content: flex-end; /* Geser semua gambar ke kanan */
+        align-items: center;
+        gap: 20px;
+    }
+}
+.gallery-text {
+    max-width: 400px; /* Membatasi lebar maksimal teks */
+    text-align: left; /* Membuat teks rata kiri */
+
+}
+.gallery-text h2 {
+    font-size: 45px; /* Ukuran font untuk judul */
+    font-weight: bold; /* Teks tebal */
+    color: #344C3D; /* Warna teks */
+    margin-bottom: 10px; /* Jarak antara judul dan tombol */
+    margin-left: -90px;
+}
+
+.sampah-btn {
+    display: inline-block; /* Tombol tetap block kecil */
+    padding: 15px 20px; /* Jarak dalam tombol */
+    background-color: #738A6E; /* Warna hijau tombol */
+    color: white; /* Warna teks tombol */
+    font-size: 16px; /* Ukuran font tombol */
+    font-weight: bold; /* Teks tombol tebal */
+    margin-left: -90px;
+    border: none; /* Menghapus border */
+    border-radius: 15px; /* Sudut tombol melengkung */
+    cursor: pointer; /* Menampilkan kursor pointer saat hover */
+    transition: background-color 0.3s ease-in-out; /* Efek hover */
+}
+
+.sampah-btn:hover {
+    transform: scale(1.03); /* Sedikit membesar saat hover */
+}
+.gallery-item2-link {
+    display: inline-block; /* Agar link hanya sebesar kontennya */
+    font-size: 0.9rem; /* Ukuran font untuk link */
+    font-weight: normal; /* Tidak terlalu tebal */
+    color: #4BCCFF; /* Warna teks */
+    text-decoration: none; /* Hilangkan garis bawah pada link */
+    border-bottom: 1px solid #4BCCFF; /* Tambahkan border bawah */
+    margin-left: -20px; /* Geser teks ke kiri */
+    transition: color 0.3s ease, border-color 0.3s ease; /* Efek transisi saat hover */
+}
+
+.gallery-item2-link:hover {
+    color: #009AD6; /* Ubah warna teks saat hover */
 }
