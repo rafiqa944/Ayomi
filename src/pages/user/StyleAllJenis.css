@@ -1,0 +1,48 @@
+h1 {
+    text-align: center; /* Untuk merapikan ke tengah */
+    margin-top: 120px; /* Atur jarak sesuai kebutuhan */
+    margin-bottom: 30px;
+    font-size: 2em; /* Opsional, menyesuaikan ukuran */
+  }  
+
+  h4 {
+    text-align: center; /* Pusatkan teks secara horizontal */
+    margin-top: 20px; /* Tambahkan jarak ke atas dari h1 */
+    font-size: 1.2em; /* Ukuran font opsional */
+    font-weight: normal; /* Pastikan teks tidak tebal */
+    color: #000000; /* Warna teks opsional */
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 kolom */
+    gap: 2px; /* Jarak antar gambar */
+    padding: 10px;
+  }
+ 
+  .image-container {
+    position: relative; /* Kontainer untuk mengatur posisi overlay */
+    text-align: center; /* Teks berada di tengah */
+    margin-bottom: 30px;
+  }
+ 
+  .image-container img {
+    width: 80%; /* Ukuran gambar */
+    height: auto; /* Menyesuaikan tinggi */
+    margin: 0 auto; /* Menengahkan gambar secara horizontal */
+    border: 2px solid #ccc; /* Border opsional */
+    border-radius: 8px; /* Sudut melengkung opsional */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Efek bayangan opsional */
+  }
+ 
+  .overlay-text {
+    position: absolute; /* Membuat teks berada di atas gambar */
+    top: 50%; /* Vertikal tengah */
+    left: 50%; /* Horizontal tengah */
+    transform: translate(-50%, -50%); /* Posisi benar-benar di tengah */
+    color: white; /* Warna teks */
+    font-size: 20px; /* Ukuran font */
+    font-weight: bold; /* Menebalkan teks */
+  }
+ 
+
