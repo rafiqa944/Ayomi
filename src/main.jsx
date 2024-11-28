@@ -4,7 +4,6 @@ import './index.css';
 import App from './App.jsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Events from "./pages/user/Events.jsx";
-import Formpendaftaran from './pages/user/Formpendaftaran.jsx';
 import LandingPage from "./pages/user/LandingPage.jsx";
 import JenisKertas from "./pages/user/JenisKertas.jsx";
 import JenisPlastik from "./pages/user/JenisPlastik.jsx";
@@ -14,6 +13,8 @@ import JenisElektronik from "./pages/user/JenisElektronik.jsx";
 import JenisBotolKaca from "./pages/user/JenisBotolKaca.jsx";
 import JenisMerek from "./pages/user/JenisMerek.jsx";
 import JenisKhusus from "./pages/user/JenisKhusus.jsx";
+import Kerajinansampah from "./pages/user/Kerajinansampah.jsx";
+import Tutorialkerajinansampah from "./pages/user/Tutorialkerajinansampah.jsx";
 
 
 const router = createBrowserRouter([
@@ -28,10 +29,6 @@ const router = createBrowserRouter([
   {
     path: "/events",
     element: <Events />,
-  },
-  {
-    path: "/formpendaftaran",
-    element: <Formpendaftaran />,
   },
   {
     path: "/jeniskertas",
@@ -64,6 +61,14 @@ const router = createBrowserRouter([
   {
     path: "/jeniskhusus",
     element: <JenisKhusus />,
+  },
+  {
+    path: "/kerajinansampah",
+    element: <Kerajinansampah />,
+  },
+  {
+    path: "/tutorialkerajinansampah",
+    element: <Tutorialkerajinansampah />,
   },
 ]);
 

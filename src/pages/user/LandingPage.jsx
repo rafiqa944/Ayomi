@@ -1,5 +1,6 @@
 import React from 'react';
 import './LandingPage.css';
+import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar';
 import Content from '../../Components/Content';
 import galeri1 from '../../assets/foto/galeri1.png';
@@ -32,7 +33,9 @@ const LandingPage = () => {
               <span>bisa jadi</span> <br />
               <span>Kerajinan?</span>
             </h2>
+            <Link to='Kerajinansampah'>
               <button className="sampah-btn">Lihat Selengkapnya</button>
+            </Link>
             </div>
               <div className="gallery-item2-wrapper">
                   <img src={pottanaman} alt="foto pot" className="gallery-item2" />
