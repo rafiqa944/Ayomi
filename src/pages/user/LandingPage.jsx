@@ -10,7 +10,6 @@ import pottanaman from '../../assets/foto/pottanaman.png';
 import tas from '../../assets/foto/tas.png';
 import limbah from '../../assets/foto/limbah.png';
 import Footer from '../../Components/Footer';
-import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
   return (
