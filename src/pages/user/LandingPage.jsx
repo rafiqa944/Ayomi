@@ -1,5 +1,6 @@
 import React from 'react';
 import './LandingPage.css';
+import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar';
 import Content from '../../Components/Content';
 import galeri1 from '../../assets/foto/galeri1.png';
@@ -27,15 +28,14 @@ const LandingPage = () => {
         <h3>Jejak volunteer Ayomi dalam membawa kebaikan untuk komunitas dan lingkungan. <br />
           <span>Mari terus melangkah bersama menuju masa depan yang lebih baik!</span></h3>
             <div>
-              <div className="gallery-text">
-                <h2>  
-                  <span>Sampah</span> <br />
-                  <span>bisa jadi</span> <br />
-                  <span>Kerajinan?</span>
-                </h2>
-                  <button className="sampah-btn">Lihat Selengkapnya</button>
-              </div>
-
+            <div className="gallery-text">
+            <h2>  
+              <span>Sampah</span> <br />
+              <span>bisa jadi</span> <br />
+              <span>Kerajinan?</span>
+            </h2>
+              <button className="sampah-btn">Lihat Selengkapnya</button>
+            </div>
               <div className="gallery-item2-wrapper">
                   <img src={pottanaman} alt="foto pot" className="gallery-item2" />
                   <div className="gallery-item2-title">
