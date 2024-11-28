@@ -21,6 +21,8 @@
     font-size: 32px; /* Mengatur ukuran font judul */
     font-weight: bold; /* Membuat teks menjadi tebal */
     color: #344C3D; /* Mengatur warna font menjadi #344C3D */
+    margin-top: -10px;
+    
 }
 .gallery h3 {
     font-weight: bold; /* Mengatur teks agar tidak tebal */
@@ -99,7 +101,7 @@
 }
 .gallery-text {
     max-width: 400px; /* Membatasi lebar maksimal teks */
-    text-align: left; /* Membuat teks rata kiri */
+   
 
 }
 .gallery-text h2 {
@@ -131,13 +133,72 @@
     display: inline-block; /* Agar link hanya sebesar kontennya */
     font-size: 0.9rem; /* Ukuran font untuk link */
     font-weight: normal; /* Tidak terlalu tebal */
+    margin-right: auto !important;
     color: #4BCCFF; /* Warna teks */
     text-decoration: none; /* Hilangkan garis bawah pada link */
     border-bottom: 1px solid #4BCCFF; /* Tambahkan border bawah */
-    margin-left: -20px; /* Geser teks ke kiri */
     transition: color 0.3s ease, border-color 0.3s ease; /* Efek transisi saat hover */
+
 }
 
 .gallery-item2-link:hover {
     color: #009AD6; /* Ubah warna teks saat hover */
+}
+
+
+.activity-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.activity-item {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.activity-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+.activity-text {
+  max-width: 500px;
+  padding: 20px;
+}
+
+.activity-text h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.activity-text p {
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+.activity-btn {
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cta {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.cta-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
 }
