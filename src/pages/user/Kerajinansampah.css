@@ -1,14 +1,3 @@
-/* Kontainer untuk teks dan gambar */
-.ayoo {
-    display: flex; /* Menggunakan flexbox agar teks dan gambar berada dalam satu baris */
-    gap: 10px; /* Memberikan jarak antara gambar dan teks */
-    padding-top: 90px; /* Memberikan jarak antara konten dan bagian atas */
-    justify-content: center; /* Menyelaraskan elemen secara horizontal ke tengah */
-    align-items: center; /* Menyelaraskan elemen secara vertikal ke tengah */
-    text-align: center; /* Menyelaraskan teks ke tengah */
-    position: relative;
-}
-
 /* Gaya untuk teks h2 */
 h2 {
     color: #344C3D; /* Warna font hijau tua */
@@ -17,14 +6,8 @@ h2 {
     font-weight: 600 !important; /* Menggunakan bobot font yang lebih tebal */
     text-align: center; /* Menyelaraskan teks ke tengah */
     margin: 0; /* Menghilangkan margin default */
-}
-
-/* Gaya untuk gambar */
-.ayomtrash {
-    max-width: 100px; /* Menentukan ukuran gambar agar tidak terlalu besar */
-    height: auto; /* Menjaga aspek rasio gambar */
-    border-radius: 8px; /* Memberikan sudut melengkung pada gambar */
-    padding-top: 30px;
+    padding-top: 25px;
+    padding-bottom: 10px;
 }
 
 /* Tombol Undo */
@@ -34,13 +17,13 @@ h2 {
     gap: 5px;
     font-family: 'Montserrat', sans-serif;
     cursor: pointer;
-    margin-left: 50px; /* Jarak dari sisi kiri */
+    margin-left: 40px; /* Jarak dari sisi kiri */
     background: none; /* Tidak ada background untuk transparansi */
     border: none; /* Menghapus border default */
     padding: 10px; /* Memberikan ruang klik yang cukup */
     position: fixed; /* Memastikan tombol berada di posisi tetap */
     left: 0; /* Menempel di kiri layar */
-    top: 18%; /* Sejajar vertikal di posisi yang diinginkan */
+    top: 19%; /* Sejajar vertikal di posisi yang diinginkan */
     transform: translateY(-20%); /* Mengatur agar tombol sejajar dengan baik */
     z-index: 1000; /* Memastikan tombol berada di atas elemen lain */
 }
@@ -60,19 +43,18 @@ h2 {
 .foto {
     display: flex; /* Menggunakan Flexbox untuk layout */
     flex-direction: column; /* Menyusun gambar secara vertikal */
-    gap: 15px; /* Memberikan jarak antara gambar */
+    gap: 20px; /* Memberikan jarak antara gambar */
     align-items: center; /* Memastikan gambar sejajar di tengah */
     padding-top: 50px; /* Menambahkan sedikit padding di sekitar gambar */
     padding-bottom: 50px;
 }
 
 /* Gaya untuk masing-masing gambar */
-.foto-events {
+.foto-kerajinansampah {
     width: 500px; /* Menjaga gambar agar tidak melebihi lebar kontainer */
     height: auto; /* Menjaga aspek rasio gambar secara otomatis */
     border-radius: 30px; /* Menambahkan sudut melengkung pada gambar */
     object-fit: cover; /* Memastikan gambar terlihat rapi */
-
 }
 
 /* Kontainer untuk gambar dan paragraf */
@@ -122,10 +104,9 @@ h2 {
   }
 
 /* Menghindari posisi paragraf memengaruhi gambar */
-.text-paragraf-container > .foto-events {
+.text-paragraf-container > .foto-kerajinansampah {
     grid-column: 1; /* Gambar tetap berada di kolom pertama */
 }
 .text-paragraf-container > .text-paragraf {
     grid-column: 2; /* Paragraf berada di kolom kedua */
 }
-

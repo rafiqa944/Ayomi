@@ -1,0 +1,152 @@
+/* Tombol Undo */
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    margin-left: 40px; /* Jarak dari sisi kiri */
+    background: none; /* Tidak ada background untuk transparansi */
+    border: none; /* Menghapus border default */
+    padding: 10px; /* Memberikan ruang klik yang cukup */
+    position: fixed; /* Memastikan tombol berada di posisi tetap */
+    left: 0; /* Menempel di kiri layar */
+    top: 18%; /* Sejajar vertikal di posisi yang diinginkan */
+    transform: translateY(-20%); /* Mengatur agar tombol sejajar dengan baik */
+    z-index: 1000; /* Memastikan tombol berada di atas elemen lain */
+}
+
+/* Ikon Undo */
+.back-icon {
+    width: 24px; /* Ukuran ikon */
+    height: 24px;
+    pointer-events: none; /* Ikon hanya dekorasi, klik pada tombol */
+}
+
+.back-button:hover {
+    opacity: 0.8; /* Efek hover untuk tombol */
+}
+
+.foto-pot {
+    width: 550px; /* Menjaga gambar agar tidak melebihi lebar kontainer */
+    height: auto; /* Menjaga aspek rasio gambar secara otomatis */
+    object-fit: cover; /* Memastikan gambar terlihat rapi */
+    display: block; /* Mengubah gambar menjadi elemen blok */
+    margin: 0 auto;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+
+}
+
+.text {
+    text-align: center;
+    justify-content: center;
+    padding-top: 83px;
+    font-family: 'Montserrat', sans-serif; /* Font Montserrat */
+}
+
+.text h2 {
+    color: #344C3D; /* Warna font hijau tua */
+    font-size: 30px; /* Ukuran font */
+    font-weight: 600 !important; /* Menggunakan bobot font yang lebih tebal */
+    text-align: center; /* Menyelaraskan teks ke tengah */
+    margin: 0; /* Menghilangkan margin default */
+    padding-top: 25px;
+    padding-bottom: 10px;
+}
+
+.text p {
+    margin-left: 100px;
+    margin-right: 100px;
+    text-align: justify;
+    line-height: 1.6; /* Memberikan spasi antar baris */
+
+}
+
+/* Gaya untuk teks heading "Bahan-bahan yang diperlukan" */
+.Bahan {
+    font-family: 'Montserrat', sans-serif; /* Menggunakan font Montserrat */
+    font-size: 16px; /* Ukuran teks untuk heading */
+    color: #344C3D; /* Warna teks hijau tua */
+    font-weight: 600; /* Membuat teks lebih tebal */
+    margin-bottom: 10px; /* Memberikan jarak bawah dengan daftar */
+    text-align: left; /* Menyelaraskan teks ke kiri */
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+/* Gaya untuk daftar bernomor */
+.list-bahan {
+    list-style-type: decimal; /* Menampilkan angka sebagai penomoran */
+    padding-left: 40px; /* Memberikan jarak dari sisi kiri kontainer */
+    font-family: 'Montserrat', sans-serif; /* Menggunakan font Montserrat */
+    font-size: 16px; /* Ukuran font daftar */
+    color: #333; /* Warna teks abu-abu gelap */
+    line-height: 1.6; /* Memberikan spasi antar baris */
+    margin-left: 100px;
+    margin-right: 100px;
+    padding-bottom: 10px;
+}
+
+/* Gaya untuk setiap item dalam daftar */
+.list-bahan li {
+    margin-bottom: 8px; /* Memberikan jarak antara setiap item dalam daftar */
+}
+
+/* Gaya untuk teks heading "Langkah-langkahnya" */
+.langkah {
+    font-family: 'Montserrat', sans-serif; /* Menggunakan font Montserrat */
+    font-size: 16px; /* Ukuran teks untuk heading */
+    color: #344C3D; /* Warna teks hijau tua */
+    font-weight: 600; /* Membuat teks lebih tebal */
+    margin-bottom: 10px; /* Memberikan jarak bawah dengan daftar */
+    text-align: left; /* Menyelaraskan teks ke kiri */
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+/* Gaya untuk daftar bernomor langkah-langkah */
+.urutan-langkah {
+    list-style-type: decimal; /* Menampilkan angka sebagai penomoran */
+    padding-left: 40px; /* Memberikan jarak dari sisi kiri kontainer */
+    font-family: 'Montserrat', sans-serif; /* Menggunakan font Montserrat */
+    font-size: 16px; /* Ukuran font daftar */
+    color: #333; /* Warna teks abu-abu gelap */
+    line-height: 1.6; /* Memberikan spasi antar baris */
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+/* Gaya untuk setiap item dalam daftar langkah-langkah */
+.urutan-langkah li {
+    margin-bottom: 8px; /* Memberikan jarak antara setiap item dalam daftar */
+}
+
+.link {
+    display: flex; /* Menggunakan flexbox untuk menata elemen dalam satu baris */
+    align-items: center; /* Menyelaraskan elemen secara vertikal di tengah */
+    gap: 5px; /* Memberikan jarak 5px antara h2 dan link */
+    justify-content: flex-start; /* Menyelaraskan elemen ke kiri */
+    padding-bottom: 20px;
+}
+
+.link h2 {
+    margin: 0; /* Menghilangkan margin default pada h2 */
+    font-family: 'Montserrat', sans-serif; /* Menggunakan font Montserrat */
+    font-size: 16px; /* Ukuran teks untuk heading */
+    color: #344C3D; /* Warna teks hijau tua */
+    font-weight: 600; /* Membuat teks lebih tebal */
+    text-align: left; /* Menyelaraskan teks ke kiri */
+    padding-left: 140px;
+}
+
+.link a {
+    color: #344C3D; /* Warna teks link */
+    text-decoration: none; /* Menghilangkan garis bawah pada link */
+    padding-top: 15px;
+}
+
+.link a:hover {
+    text-decoration: underline; /* Memberikan garis bawah pada link saat hover */
+}
