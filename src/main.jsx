@@ -17,6 +17,7 @@ import Kerajinansampah from "./pages/user/Kerajinansampah.jsx";
 import Tutorialkerajinansampah from "./pages/user/Tutorialkerajinansampah.jsx";
 import FormDonasiSampah from "./pages/user/FormDonasiSampah.jsx";
 import FormPembuatanKegiatan from "./pages/user/FormPembuatanKegiatan.jsx";
+import FormPendaftaranKegiatan from "./pages/user/FormPendaftaranKegiatan.jsx";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
   {
     path: "/formpembuatankegiatan",
     element: <FormPembuatanKegiatan />,
+  },
+  {
+    path: "/formpendaftarankegiatan",
+    element: <FormPendaftaranKegiatan />,
   },
 ]);
 
