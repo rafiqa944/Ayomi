@@ -42,7 +42,9 @@ const LandingPage = () => {
                   <img src={pottanaman} alt="foto pot" className="gallery-item2" />
                   <div className="gallery-item2-title">
                     Pot tanaman dari galon bekas
+                  <Link to='Tutorialkerajinansampah'>
                   <a className="gallery-item2-link">Selengkapnya</a>
+                  </Link>
                   </div>
               </div>
 
