@@ -1,6 +1,6 @@
 .footer-container {
     background-color: #344C3D;
-    padding: 20px;
+    padding: 70px;
     text-align: center;
     position: relative; /* Menghindari fixed positioning */
     width: 100%;
@@ -30,16 +30,18 @@
   
   .social-icons {
     display: flex;
-    gap: 15px;
+    gap: 25px;
     justify-content: center;
-    padding-top: 10px;
+    padding-top: 20px;
   }
   
   .social-icon {
-    width: 30px;
-    height: 30px;
-    justify-content: center;
-  }
+    width: 50px; /* Ukuran gambar container */
+    height: 50px; /* Ukuran gambar container */
+    font-size: 25px; /* Ukuran ikon */
+    color: #FFF; /* Warna ikon */
+}
+
 
   .footer-secondary {
     background-color: #738A6E; /* Warna latar belakang */

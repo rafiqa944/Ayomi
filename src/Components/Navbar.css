@@ -46,7 +46,6 @@ nav {
   
   /* Efek saat link ditekan (active state) */
   nav ul li a:active {
-    background-color: #4a5d3b; /* Warna latar belakang saat ditekan */
     transform: scale(0.98); /* Efek mengecilkan saat tombol ditekan */
   }
   
@@ -65,3 +64,68 @@ nav {
     transform: scale(1.03); /* Sedikit membesar saat hover */
   }
    
+
+  /* Container dropdown */
+.dropdown {
+  position: relative;
+  
+}
+
+/* Tombol dropdown */
+.dropdown-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 10px 15px; /* Pastikan ada ruang yang cukup di tombol */
+}
+
+/* Menu dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgba(115, 138, 110, 0.18); /* Transparansi 18% */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+  width: auto; /* Atur agar lebar otomatis mengikuti panjang teks */
+  min-width: 150px; /* Tentukan lebar minimal */
+  text-align: left;
+}
+
+
+/* Elemen dalam dropdown */
+.dropdown-menu li {
+  padding: 10px 15px; /* Menambah sedikit ruang padding untuk menghindari terlalu rapat */
+  text-align: left; /* Menyelaraskan teks ke kiri */
+  white-space: nowrap; /* Menjaga teks tetap satu baris */
+  margin-left: 0; /* Hapus margin kiri agar item lebih ke kiri */
+}
+
+.dropdown-menu li a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+
+
+/* Hilangkan default tombol */
+.dropdown-btn:focus {
+  outline: none;
+}
+
+/* Ikon dropdown di Our Services */
+.dropdown-icon {
+  margin-left: 25px;
+  font-size: 0.9rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+/* Rotasi ikon saat dropdown terbuka */
+.dropdown-icon.open {
+  transform: rotate(180deg);
+}
