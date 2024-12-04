@@ -235,7 +235,9 @@ const LandingPage = () => {
             Ubah sampahmu menjadi manfaat dengan mendonasikannya sekarang! <br/> Setiap donasi sampah yang Anda berikan akan 
             membantu mendukung <br/> program daur ulang dan menjaga kelestarian lingkungan.
           </p>
+          <Link to="FormDonasiSampah">
           <button className="donation-button">Daftar donasi</button>
+          </Link>
         </div>
       </div>
 

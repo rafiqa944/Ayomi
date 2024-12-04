@@ -43,7 +43,7 @@ const Events = () => {
               membersihkan pantai sambil meningkatkan kesadaran akan
               pentingnya menjaga ekosistem laut.
             </p>
-            <Link to="/Formpendaftaran">
+            <Link to="/FormPendaftaranKegiatan">
             <button className='action-button'>Daftar Sekarang</button>
             </Link>
             </div>
@@ -65,7 +65,7 @@ const Events = () => {
               dapat mengembangkan kecintaan terhadap lingkungan dan
               menjadi agen perubahan di komunitas mereka.
             </p>
-            <Link to="/Formpendaftaran">
+            <Link to="/FormPendaftaranKegiatan">
             <button className='action-button'>Daftar Sekarang</button>
             </Link>
             </div>
@@ -88,7 +88,7 @@ const Events = () => {
               merumuskan langkah-langkah konkret yang dapat diambil
               bersama untuk mengurangi sampah di komunitas. 
             </p>
-            <Link to="/Formpendaftaran">
+            <Link to="/FormPendaftaranKegiatan">
             <button className='action-button'>Daftar Sekarang</button>
             </Link>
             </div>
