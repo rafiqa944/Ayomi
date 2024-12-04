@@ -23,7 +23,7 @@ const Navbar = () => {
             onClick={toggleDropdown}
           >
             Our Services
-            <span className={`dropdown-icon ${dropdownVisible ? 'open' : ''}`}>▼</span>
+            <span className={`dropdown-icon ${dropdownVisible ? 'open' : ''}`}>v</span>
           </button>
           {dropdownVisible && (
             <ul className="dropdown-menu">

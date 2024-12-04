@@ -17,8 +17,13 @@ import Kerajinansampah from "./pages/user/Kerajinansampah.jsx";
 import Tutorialkerajinansampah from "./pages/user/Tutorialkerajinansampah.jsx";
 import FormDonasiSampah from "./pages/user/FormDonasiSampah.jsx";
 import Aboutus from "./pages/user/Aboutus.jsx";
+import Chatbot from "./Components/Chatbot.jsx";
 
 const router = createBrowserRouter([
+  {
+    path: "/chatbot",
+    element: <Chatbot />,
+  },
   {
     path: "/",
     element: <App />,

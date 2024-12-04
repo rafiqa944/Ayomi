@@ -24,15 +24,15 @@ import iconmerek from '../../assets/icon/iconmerek.png';
 import iconkhusus from '../../assets/icon/iconkhusus.png';
 import iconaluminium from '../../assets/icon/iconaluminium.png';
 import donasi from '../../assets/foto/donasi.png';
-
 import { Link } from 'react-router-dom';
+import Chatbot from '../../Components/Chatbot';
 
 const LandingPage = () => {
   return (
     <div className="landingpage">
+      <Chatbot/>
       <Navbar />
       <Content />
-
       <div className="gallery">
         <h1>Lihat yang sudah kami lakukan yuk!</h1>
         <div className="gallery-content">
