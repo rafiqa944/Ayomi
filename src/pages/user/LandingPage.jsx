@@ -30,9 +30,9 @@ import Chatbot from '../../Components/Chatbot';
 const LandingPage = () => {
   return (
     <div className="landingpage">
-      <Chatbot/>
       <Navbar />
       <Content />
+      <Chatbot/>
       <div className="gallery">
         <h1>Lihat yang sudah kami lakukan yuk!</h1>
         <div className="gallery-content">
