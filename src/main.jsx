@@ -17,6 +17,10 @@ import Kerajinansampah from "./pages/user/Kerajinansampah.jsx";
 import Tutorialkerajinansampah from "./pages/user/Tutorialkerajinansampah.jsx";
 import FormDonasiSampah from "./pages/user/FormDonasiSampah.jsx";
 import Aboutus from "./pages/user/Aboutus.jsx";
+import FormPembuatanKegiatan from "./pages/user/FormPembuatanKegiatan.jsx";
+import FormPendaftaranKegiatan from "./pages/user/FormPendaftaranKegiatan.jsx";
+import SignIn from "./pages/user/SignIn.jsx";
+import SignUp from "./pages/user/SignUp.jsx";
 import Chatbot from "./Components/Chatbot.jsx";
 
 const router = createBrowserRouter([
@@ -83,6 +87,22 @@ const router = createBrowserRouter([
   {
     path: "/aboutus",
     element: <Aboutus />,
+  },
+  {
+    path: "/formpembuatankegiatan",
+    element: <FormPembuatanKegiatan />,
+  },
+  {
+    path: "/formpendaftarankegiatan",
+    element: <FormPendaftaranKegiatan />,
+  },
+  {
+    path: "/signin",
+    element: <SignIn />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
   },
 ]);
 
