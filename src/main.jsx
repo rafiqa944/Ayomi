@@ -21,8 +21,13 @@ import FormPembuatanKegiatan from "./pages/user/FormPembuatanKegiatan.jsx";
 import FormPendaftaranKegiatan from "./pages/user/FormPendaftaranKegiatan.jsx";
 import SignIn from "./pages/user/SignIn.jsx";
 import SignUp from "./pages/user/SignUp.jsx";
+import Chatbot from "./Components/Chatbot.jsx";
 
 const router = createBrowserRouter([
+  {
+    path: "/chatbot",
+    element: <Chatbot />,
+  },
   {
     path: "/",
     element: <App />,
