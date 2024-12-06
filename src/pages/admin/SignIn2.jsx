@@ -20,7 +20,7 @@ export default function SignIn() {
     setTimeout(() => {
       alert("Login simulation successful!");
       setIsLoading(false);
-      navigate("/landingpage");  // Arahkan ke halaman home setelah login berhasil
+      navigate("/dashboard");  // Arahkan ke halaman home setelah login berhasil
     }, 2000);
   };
 
