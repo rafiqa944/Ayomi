@@ -118,6 +118,8 @@ const router = createBrowserRouter([
   {
     path: "/datauser",
     element: <DataUser />,
+  },
+  {
 
     path: "/dashboard",
     element: < Dashboard/>, 
