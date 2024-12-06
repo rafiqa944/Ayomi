@@ -22,6 +22,8 @@ import FormPendaftaranKegiatan from "./pages/user/FormPendaftaranKegiatan.jsx";
 import SignIn from "./pages/user/SignIn.jsx";
 import SignUp from "./pages/user/SignUp.jsx";
 import Chatbot from "./Components/Chatbot.jsx";
+import AyomiPoint from "./pages/user/AyomiPoint.jsx";
+import DataUser from "./pages/admin/DataUser.jsx";
 
 const router = createBrowserRouter([
   {
@@ -103,6 +105,14 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+  },
+  {
+    path: "/ayomipoint",
+    element: <AyomiPoint />,
+  },
+  {
+    path: "/datauser",
+    element: <DataUser />,
   },
 ]);
 

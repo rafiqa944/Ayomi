@@ -11,7 +11,7 @@
     padding: 10px; /* Memberikan ruang klik yang cukup */
     position: fixed; /* Memastikan tombol berada di posisi tetap */
     left: 0; /* Menempel di kiri layar */
-    top: 18%; /* Sejajar vertikal di posisi yang diinginkan */
+    top: 17%; /* Sejajar vertikal di posisi yang diinginkan */
     transform: translateY(-20%); /* Mengatur agar tombol sejajar dengan baik */
     z-index: 1000; /* Memastikan tombol berada di atas elemen lain */
 }
@@ -35,7 +35,7 @@
     margin: 0 auto;
     border-radius: 20px;
     margin-bottom: 30px;
-    margin-top: 30px;
+    margin-top: 10px;
 
 }
 
@@ -53,7 +53,7 @@
     text-align: center; /* Menyelaraskan teks ke tengah */
     margin: 0; /* Menghilangkan margin default */
     padding-top: 25px;
-    padding-bottom: 10px;
+    padding-bottom: 70px;
 }
 
 .text p {

@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";  // Import useNavigate
-import './SignIn.css';
+import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth"; // Import Firebase Authentication
+import { auth } from "../../config/firebaseConfig"; // Import konfigurasi Firebase
+import { Link } from "react-router-dom"; // Import Link untuk navigasi
+import "./SignIn.css";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -9,27 +12,38 @@ export default function SignIn() {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
-  const navigate = useNavigate();  // Inisialisasi useNavigate
 
-  const handleSignIn = (e) => {
+  const navigate = useNavigate();
+
+  const handleSignIn = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulasi login
-    setTimeout(() => {
-      alert("Login simulation successful!");
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      alert(`Welcome back, ${user.email}!`);
+      
+      // Simpan session berdasarkan opsi Remember Me
+      const storage = rememberMe ? localStorage : sessionStorage;
+      storage.setItem("user", JSON.stringify(user));
+
       setIsLoading(false);
-      navigate("/landingpage");  // Arahkan ke halaman home setelah login berhasil
-    }, 2000);
+      navigate("/landingpage");
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert(`Login failed: ${error.message}`);
+      setIsLoading(false);
+    }
   };
 
   const handleForgotPassword = () => {
     if (!email) {
       alert("Please enter your email before resetting your password.");
-    } else {
-      alert(`Password reset email sent to ${email} (simulation).`);
+      return;
     }
+    alert(`Password reset email sent to ${email} (simulation).`);
   };
 
   return (
@@ -45,6 +59,7 @@ export default function SignIn() {
       {/* Right Section */}
       <div className="right-section">
         <form className="signin-form" onSubmit={handleSignIn}>
+          {/* Email Input */}
           <div className="form-group">
             <label htmlFor="email" className="form-label">Username</label>
             <input
@@ -58,6 +73,7 @@ export default function SignIn() {
             />
           </div>
 
+          {/* Password Input */}
           <div className="form-group relative">
             <label htmlFor="password" className="form-label">Password</label>
             <input
@@ -78,6 +94,7 @@ export default function SignIn() {
             </button>
           </div>
 
+          {/* Remember Me and Forgot Password */}
           <div className="form-options">
             <div className="remember-me">
               <input
@@ -97,6 +114,7 @@ export default function SignIn() {
             </button>
           </div>
 
+          {/* Submit Button */}
           <button
             type="submit"
             className={`submit-button ${isLoading ? "loading" : ""}`}
@@ -105,11 +123,12 @@ export default function SignIn() {
             {isLoading ? "Processing..." : "Sign In"}
           </button>
 
+          {/* Sign Up Link */}
           <div className="signup-link">
             Belum punya akun?{" "}
-            <a href="/auth/sign-up" className="signup">
+            <Link to="/signup" className="signup">
               Sign Up
-            </a>
+            </Link>
           </div>
         </form>
       </div>
