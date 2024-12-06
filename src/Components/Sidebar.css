@@ -1,53 +1,58 @@
 /* src/components/Sidebar.css */
 
 .sidebar {
-    width: 250px;
-    height: 100vh; /* Sidebar mengisi seluruh tinggi layar */
-    background-color: #738A6E;
-    color: white;
-    padding: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Mengatur item untuk berada di atas */
-  }
-  
-  .sidebar-logo {
-    width: 100%; /* Menyesuaikan lebar gambar logo agar menyesuaikan dengan lebar sidebar */
-    max-width: 200px; /* Menyesuaikan ukuran maksimal gambar logo */
-    margin-bottom: 20px; /* Memberikan jarak antara logo dan menu */
-    object-fit: contain; /* Memastikan gambar tetap proporsional */
-  }
-  
-  .menu {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px; /* Memberikan jarak di atas menu */
-  }
-  
-  .menuItem {
-    margin-bottom: 25px; /* Memberikan jarak antar item menu */
-    margin-left: 15px;
-  }
-  
-  .menuItem a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    padding: 10px; /* Memberikan padding agar area klik lebih besar */
-    display: block; /* Agar link bisa mengisi seluruh baris */
-    border-radius: 5px; /* Memberikan sudut yang melengkung */
-    transition: background-color 0.3s ease; /* Efek transisi ketika hover */
-  }
-  
-  .menuItem a:hover {
-    background-color: #2f5445; /* Memberikan warna latar belakang saat hover */
-    text-decoration: none; /* Menghilangkan underline saat hover */
-  }
-  
-  .menuItem a:active {
-    background-color: #444; /* Memberikan warna latar belakang saat item ditekan */
-  }
-  
+  width: 250px;
+  height: 100vh; /* Sidebar mengisi seluruh tinggi layar */
+  background-color: #738A6E;
+  color: white;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Mengatur item untuk berada di atas */
+}
+
+.sidebar-logo {
+  width: 100%; /* Menyesuaikan lebar gambar logo agar menyesuaikan dengan lebar sidebar */
+  max-width: 200px; /* Menyesuaikan ukuran maksimal gambar logo */
+  margin-bottom: 20px; /* Memberikan jarak antara logo dan menu */
+  object-fit: contain; /* Memastikan gambar tetap proporsional */
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px; /* Memberikan jarak di atas menu */
+}
+
+.menuItem {
+  margin-bottom: 25px; /* Memberikan jarak antar item menu */
+  margin-left: 15px;
+}
+
+.menuItem a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px; /* Memberikan padding agar area klik lebih besar */
+  display: block; /* Agar link bisa mengisi seluruh baris */
+  border-radius: 5px; /* Memberikan sudut yang melengkung */
+  transition: background-color 0.3s ease; /* Efek transisi ketika hover */
+}
+
+.menuItem a:hover {
+  background-color: #2f5445; /* Memberikan warna latar belakang saat hover */
+  text-decoration: none; /* Menghilangkan underline saat hover */
+}
+
+.menuItem a:active {
+  background-color: #444; /* Memberikan warna latar belakang saat item ditekan */
+}
+
+/* Gaya untuk item menu yang aktif */
+.menuItem.active a {
+  background-color: #2f5445; /* Warna latar belakang saat item aktif */
+  font-weight: bold; /* Menebalkan teks item yang aktif */
+}
