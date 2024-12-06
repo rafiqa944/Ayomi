@@ -1,0 +1,22 @@
+/* src/pages/Dashboard.css */
+
+.dashboard-container {
+    display: flex;
+  }
+  
+  .dashboard-content {
+    margin-left: 250px; /* Memberikan ruang untuk sidebar */
+    padding: 5px;
+    flex-grow: 1; /* Memastikan konten mengisi sisa ruang yang tersedia */
+  }
+  
+  .dashboard-content h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .dashboard-content p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
