@@ -36,7 +36,9 @@ const Navbar = () => {
         <li><Link to="/events">Events</Link></li>
         <li><Link to="/aboutus">About Us</Link></li>
         <li>
-          <button className='btn'>Donasi</button>
+          <Link to="FormDonasiSampah">
+            <button className='btn'>Donasi</button>
+          </Link>
         </li>
       </ul>
     </nav>

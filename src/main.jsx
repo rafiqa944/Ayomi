@@ -24,6 +24,10 @@ import SignUp from "./pages/user/SignUp.jsx";
 import Chatbot from "./Components/Chatbot.jsx";
 import AyomiPoint from "./pages/user/AyomiPoint.jsx";
 import DataUser from "./pages/admin/DataUser.jsx";
+import Dashboard from "./pages/admin/Dashboard.jsx";
+import SignIn2 from "./pages/admin/SignIn2.jsx";
+import AdminTutorial from "./pages/admin/AdminTutorial.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -107,12 +111,24 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
+
     path: "/ayomipoint",
     element: <AyomiPoint />,
   },
   {
     path: "/datauser",
     element: <DataUser />,
+
+    path: "/dashboard",
+    element: < Dashboard/>, 
+  },
+  {
+    path: "/signin2",
+    element: < SignIn2 />,
+  },  
+  {
+    path: "/admintutorial",
+    element: < AdminTutorial />,
   },
 ]);
 
