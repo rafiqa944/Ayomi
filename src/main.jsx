@@ -26,7 +26,7 @@ import AyomiPoint from "./pages/user/AyomiPoint.jsx";
 import DataUser from "./pages/admin/DataUser.jsx";
 import Dashboard from "./pages/admin/Dashboard.jsx";
 import SignIn2 from "./pages/admin/SignIn2.jsx";
-import AdminTutorial from "./pages/admin/AdminTutorial.jsx";
+// import AdminTutorial from "./pages/admin/AdminTutorial.jsx";
 
 
 const router = createBrowserRouter([
@@ -111,7 +111,6 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-
     path: "/ayomipoint",
     element: <AyomiPoint />,
   },
@@ -120,7 +119,6 @@ const router = createBrowserRouter([
     element: <DataUser />,
   },
   {
-
     path: "/dashboard",
     element: < Dashboard/>, 
   },
@@ -128,10 +126,10 @@ const router = createBrowserRouter([
     path: "/signin2",
     element: < SignIn2 />,
   },  
-  {
-    path: "/admintutorial",
-    element: < AdminTutorial />,
-  },
+  // {
+  //   path: "/admintutorial",
+  //   element: < AdminTutorial />,
+  // },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
