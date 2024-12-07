@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";  // Import useNavigate
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { auth } from "../../../firebaseConfig";  // Impor auth dari firebaseConfig
+import { signInWithEmailAndPassword } from "firebase/auth";  // Impor signInWithEmailAndPassword dari firebase/auth
 import './SignIn2.css';
 
 export default function SignIn() {
@@ -9,19 +11,26 @@ export default function SignIn() {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
-  const navigate = useNavigate();  // Inisialisasi useNavigate
+  const [errorMessage, setErrorMessage] = useState(""); // For error message
+  const navigate = useNavigate(); // Inisialisasi useNavigate
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setErrorMessage(""); // Reset error message before attempt
 
-    // Simulasi login
-    setTimeout(() => {
-      alert("Login simulation successful!");
+    try {
+      // Gunakan Firebase Authentication untuk login
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;  // Dapatkan data user
+
+      alert("Login successful!");
       setIsLoading(false);
-      navigate("/dashboard");  // Arahkan ke halaman home setelah login berhasil
-    }, 2000);
+      navigate("/dashboard"); // Arahkan ke halaman dashboard setelah login berhasil
+    } catch (error) {
+      setIsLoading(false);
+      setErrorMessage(error.message); // Menampilkan pesan error
+    }
   };
 
   const handleForgotPassword = () => {
@@ -77,6 +86,13 @@ export default function SignIn() {
               {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
             </button>
           </div>
+
+          {/* Error Message */}
+          {errorMessage && (
+            <div className="error-message">
+              <p>{errorMessage}</p>
+            </div>
+          )}
 
           <div className="form-options">
             <div className="remember-me">

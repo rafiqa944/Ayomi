@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import './SignUp.css';
+import { useNavigate } from "react-router-dom";
+import { auth, db } from "../../../firebaseConfig"; // Import Firebase
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import "./SignUp.css";
 
 export default function SignUp() {
   const [fullName, setFullName] = useState("");
@@ -13,31 +16,46 @@ export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate(); // Inisialisasi useNavigate
+  const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulasi pendaftaran
-    setTimeout(() => {
-      alert("SignUp simulation successful!");
+    try {
+      // Register user with Firebase Authentication
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      // Save additional user info to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        fullName,
+        username,
+        email,
+        phone,
+        address,
+      });
+
+      alert("Pendaftaran berhasil!");
       setIsLoading(false);
-      navigate("/landingpage"); // Arahkan ke halaman landing page setelah signup berhasil
-    }, 2000);
+      navigate("/landingpage");
+    } catch (error) {
+      console.error("Error during signup:", error);
+      alert("Terjadi kesalahan saat pendaftaran.");
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="signup-container">
-      {/* Background Overlay */}
       <div className="background-overlay"></div>
-
-      {/* Left Section */}
       <div className="left-section">
         <h1 className="welcome-text">Buat akun mu!</h1>
       </div>
-
-      {/* Right Section */}
       <div className="right-section">
         <form className="signup-form" onSubmit={handleSignUp}>
           <div className="form-group">
@@ -52,7 +70,6 @@ export default function SignUp() {
               required
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="username" className="form-label">Username</label>
             <input
@@ -65,7 +82,6 @@ export default function SignUp() {
               required
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="email" className="form-label">Email</label>
             <input
@@ -78,7 +94,6 @@ export default function SignUp() {
               required
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="phone" className="form-label">Nomor Telepon</label>
             <input
@@ -91,7 +106,6 @@ export default function SignUp() {
               required
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="address" className="form-label">Alamat</label>
             <input
@@ -104,7 +118,6 @@ export default function SignUp() {
               required
             />
           </div>
-
           <div className="form-group relative">
             <label htmlFor="password" className="form-label">Password</label>
             <input
@@ -124,7 +137,6 @@ export default function SignUp() {
               {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
             </button>
           </div>
-
           <button
             type="submit"
             className={`submit-button ${isLoading ? "loading" : ""}`}
@@ -132,15 +144,14 @@ export default function SignUp() {
           >
             {isLoading ? "Processing..." : "Sign Up"}
           </button>
-
           <div className="signin-link">
             Sudah punya akun?{" "}
-            <a 
-              href="/auth/sign-in" 
+            <a
+              href="/auth/sign-in"
               className="signin"
               onClick={(e) => {
                 e.preventDefault();
-                navigate("/auth/sign-in"); // Arahkan ke halaman sign-in ketika tautan ditekan
+                navigate("/auth/sign-in");
               }}
             >
               Sign In

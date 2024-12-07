@@ -172,3 +172,9 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
 
+  .error-message {
+    color: red;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  
