@@ -25,10 +25,12 @@ import Chatbot from "./Components/Chatbot.jsx";
 import AyomiPoint from "./pages/user/AyomiPoint.jsx";
 import DataUser from "./pages/admin/DataUser.jsx";
 import Dashboard from "./pages/admin/Dashboard.jsx";
-import SignIn2 from "./pages/admin/SignIn2.jsx";
+import SignIn2 from "./pages/admin/SignIn2.jsx"
 import Pengaturan from "./pages/user/Pengaturan.jsx";
 import UbahProfile from "./pages/user/UbahProfile.jsx";
 // import AdminTutorial from "./pages/admin/AdminTutorial.jsx";
+import AdminTutorial from "./pages/admin/AdminTutorial.jsx";
+
 
 
 const router = createBrowserRouter([
@@ -136,10 +138,10 @@ const router = createBrowserRouter([
     path: "/ubahprofile",
     element: < UbahProfile />,
   },  
-  // {
-  //   path: "/admintutorial",
-  //   element: < AdminTutorial />,
-  // },
+  {
+    path: "/admintutorial",
+    element: < AdminTutorial />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

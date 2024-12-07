@@ -1,91 +1,155 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { MaterialReactTable } from 'material-react-table';
-import { collection, getDocs } from "firebase/firestore";
-import { db } from '../../config/firebaseConfig';
-import { Box, IconButton, Tooltip } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+// src/pages/DataUser.jsx
+import React, { useState, useEffect, useMemo } from "react";
+import { MaterialReactTable } from "material-react-table";
+import { collection, getDocs, doc, setDoc, deleteDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "../../config/firebaseConfig";
+import { Box, IconButton, Tooltip, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Sidebar from "../../Components/Sidebar";
 
 const DataUser = () => {
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [editingUser, setEditingUser] = useState(null); // state for editing user
-    const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, userId: null });
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, userId: null });
 
-    useEffect(() => {
-        // Function to fetch users from Firestore
-        const fetchUsers = async () => {
-            setLoading(true);
-            try {
-                // Fetching all users from the 'users' collection
-                const querySnapshot = await getDocs(collection(db, "user"));
-                const usersData = querySnapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...doc.data(), // Spread the document data
-                }));
-                setUsers(usersData);
-            } catch (error) {
-                console.error("Error fetching users:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchUsers();
-    }, []);
-
-    const handleEdit = (user) => setEditingUser(user);
-
-    const handleSave = async (updatedUser) => {
-        try {
-            // Update the user data in Firestore (this example doesn't implement the update function)
-            setUsers(users.map((u) => (u.id === updatedUser.id ? updatedUser : u)));
-            setEditingUser(null);
-        } catch (error) {
-            console.error("Failed to update user:", error);
-        }
+  useEffect(() => {
+    const fetchUsers = async () => {
+      setLoading(true);
+      try {
+        const querySnapshot = await getDocs(collection(db, "users"));
+        const usersData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setUsers(usersData);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    const columns = useMemo(
-        () => [
-            { accessorKey: 'id', header: 'ID' },
-            { accessorKey: 'nama', header: 'Nama' },
-            { accessorKey: 'email', header: 'Email' },
-            { accessorKey: 'kontak', header: 'Kontak' },
-            { accessorKey: 'alamat', header: 'Alamat' },
-            { accessorKey: 'username', header: 'Username' },
-        ],
-        []
-    );
+    fetchUsers();
+  }, []);
 
-    if (loading) return <p>Loading...</p>;
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userDocRef = doc(db, "users", user.uid);
+        const userDoc = await getDocs(userDocRef);
 
-    return (
-        <div className="p-4">
-            <div className="flex justify-between mb-4">
-                <span className="text-lg font-bold pt-2">Data User</span>
-            </div>
-            <MaterialReactTable
-                columns={columns}
-                data={users}
-                enableEditing
-                renderRowActions={({ row }) => (
-                    <Box sx={{ display: 'flex', gap: '1rem' }}>
-                        <Tooltip title="Edit">
-                            <IconButton onClick={() => handleEdit(row.original)}>
-                                <EditIcon />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Delete">
-                            <IconButton color="error" onClick={() => setConfirmDialog({ isOpen: true, userId: row.original.id })}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
-                    </Box>
-                )}
-            />
-        </div>
-    );
+        if (!userDoc.exists()) {
+          const newUser = {
+            username: user.displayName || "Anonymous",
+            email: user.email,
+            phone: user.phoneNumber || "N/A",
+            address: "Alamat belum diatur",
+            fullName: user.displayName || "Nama belum diatur",
+          };
+
+          await setDoc(userDocRef, newUser);
+          setUsers((prevUsers) => [...prevUsers, { id: user.uid, ...newUser }]);
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleDelete = async (userId) => {
+    try {
+      const userDocRef = doc(db, "users", userId);
+      await deleteDoc(userDocRef);
+      setUsers(users.filter((u) => u.id !== userId));
+      setConfirmDialog({ isOpen: false, userId: null });
+    } catch (error) {
+      console.error("Failed to delete user:", error);
+    }
+  };
+
+  const columns = useMemo(
+    () => [
+      { accessorKey: "id", header: "ID" },
+      { accessorKey: "username", header: "Username" },
+      { accessorKey: "fullName", header: "Nama" },
+      { accessorKey: "email", header: "Email" },
+      { accessorKey: "phone", header: "Phone" },
+      { accessorKey: "address", header: "Alamat" },
+      {
+        accessorKey: "actions",
+        header: "Actions",
+        Cell: ({ row }) => (
+          <Box sx={{ display: "flex", gap: "1rem" }}>
+            {/* Hanya tombol Delete */}
+            <Tooltip title="Delete">
+              <IconButton
+                color="error"
+                onClick={() =>
+                  setConfirmDialog({ isOpen: true, userId: row.original.id })
+                }
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        ),
+        size: 100, // Sesuaikan ukuran kolom
+      },
+    ],
+    []
+  );
+
+  return (
+    <div style={{ display: "flex" }}>
+      <Sidebar />
+      <div style={{ marginLeft: "250px", padding: "20px", width: "calc(100% - 250px)" }}>
+        <h2>Data User</h2>
+        <MaterialReactTable
+          columns={columns}
+          data={users}
+          enableEditing={false}
+          layoutMode="semantic"
+          initialState={{
+            density: "compact",
+            pagination: { pageSize: 10 },
+          }}
+          muiTableContainerProps={{
+            sx: {
+              maxHeight: "500px",
+              overflow: "auto",
+            },
+          }}
+        />
+        {/* Delete Confirmation Dialog */}
+        <Dialog
+          open={confirmDialog.isOpen}
+          onClose={() => setConfirmDialog({ isOpen: false, userId: null })}
+        >
+          <DialogTitle>Hapus User</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Apakah Anda yakin ingin menghapus user ini? Tindakan ini tidak dapat
+              dibatalkan.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => setConfirmDialog({ isOpen: false, userId: null })}
+            >
+              Batal
+            </Button>
+            <Button
+              color="error"
+              onClick={() => handleDelete(confirmDialog.userId)}
+            >
+              Hapus
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    </div>
+  );
 };
 
 export default DataUser;
