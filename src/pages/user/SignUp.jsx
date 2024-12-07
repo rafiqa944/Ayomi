@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { auth, db } from "../../../firebaseConfig"; // Import Firebase
+// import { auth, db } from "../../../firebaseConfig"; // Import Firebase
+import { auth, db } from "../../config/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import "./SignUp.css";

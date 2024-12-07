@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Navbar from "../../Components/Navbar"; // Panggil Navbar
 import Footer from "../../Components/Footer"; // Panggil Footer
+import { db } from "../../config/firebaseConfig"; // Import Firestore
+import { collection, addDoc } from "firebase/firestore"; // Import fungsi Firestore
 import "./FormPendaftaranKegiatan.css";
 
 const RegistrationForm = () => {
@@ -12,6 +14,9 @@ const RegistrationForm = () => {
     reason: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -20,9 +25,28 @@ const RegistrationForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setMessage("");
+
+    try {
+      // Tambahkan data ke Firestore
+      await addDoc(collection(db, "registrations"), formData);
+      setMessage("Pendaftaran berhasil!");
+      setFormData({
+        fullName: "",
+        phone: "",
+        address: "",
+        gender: "",
+        reason: "",
+      });
+    } catch (error) {
+      console.error("Error menambahkan data: ", error);
+      setMessage("Terjadi kesalahan. Silakan coba lagi.");
+    }
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -43,6 +67,7 @@ const RegistrationForm = () => {
               value={formData.fullName}
               onChange={handleChange}
               placeholder="Masukkan Nama Lengkap"
+              required
             />
           </div>
 
@@ -54,6 +79,7 @@ const RegistrationForm = () => {
               value={formData.phone}
               onChange={handleChange}
               placeholder="Masukkan Nomor Handphone"
+              required
             />
           </div>
 
@@ -65,6 +91,7 @@ const RegistrationForm = () => {
               value={formData.address}
               onChange={handleChange}
               placeholder="Masukkan Alamat"
+              required
             />
           </div>
 
@@ -76,6 +103,7 @@ const RegistrationForm = () => {
               value={formData.gender}
               onChange={handleChange}
               placeholder="Masukkan Jenis Kelamin"
+              required
             />
           </div>
 
@@ -87,13 +115,20 @@ const RegistrationForm = () => {
               value={formData.reason}
               onChange={handleChange}
               placeholder="Masukkan Alasan Mengikuti Kegiatan"
+              required
             />
           </div>
 
-          <button type="submit" className="submit-button">
-            Kirim
+          <button
+            type="submit"
+            className="submit-button"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Mengirim..." : "Kirim"}
           </button>
         </form>
+
+        {message && <p className="message">{message}</p>}
       </main>
 
       {/* Panggil Footer di bawah */}
