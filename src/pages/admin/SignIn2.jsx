@@ -1,58 +1,51 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-// import { auth } from "../../../firebaseConfig";  // Impor auth dari firebaseConfig
+import { useNavigate } from "react-router-dom";
 import { auth } from "../../config/firebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";  // Impor signInWithEmailAndPassword dari firebase/auth
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore"; // Import Firestore functions
+import { db } from "../../config/firebaseConfig"; // Import Firestore configuration
 import './SignIn2.css';
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(""); // For error message
-  const navigate = useNavigate(); // Inisialisasi useNavigate
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setErrorMessage(""); // Reset error message before attempt
+    setErrorMessage("");
 
     try {
-      // Gunakan Firebase Authentication untuk login
+      // Login dengan Firebase Authentication
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;  // Dapatkan data user
+      const user = userCredential.user;
 
-      alert("Login successful!");
-      setIsLoading(false);
-      navigate("/dashboard"); // Arahkan ke halaman dashboard setelah login berhasil
+      // Periksa apakah pengguna adalah admin
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists() && userDoc.data().role === "admin") {
+        alert("Login successful! Welcome Admin.");
+        navigate("/dashboard");
+      } else {
+        throw new Error("Unauthorized: Only admins can log in.");
+      }
     } catch (error) {
+      setErrorMessage(error.message);
+    } finally {
       setIsLoading(false);
-      setErrorMessage(error.message); // Menampilkan pesan error
-    }
-  };
-
-  const handleForgotPassword = () => {
-    if (!email) {
-      alert("Please enter your email before resetting your password.");
-    } else {
-      alert(`Password reset email sent to ${email} (simulation).`);
     }
   };
 
   return (
     <div className="signin-container">
-      {/* Background Overlay */}
       <div className="background-overlay"></div>
-
-      {/* Left Section */}
       <div className="left-section">
         <h1 className="welcome-text">Login Admin</h1>
       </div>
-
-      {/* Right Section */}
       <div className="right-section">
         <form className="signin-form" onSubmit={handleSignIn}>
           <div className="form-group">
@@ -88,31 +81,11 @@ export default function SignIn() {
             </button>
           </div>
 
-          {/* Error Message */}
           {errorMessage && (
             <div className="error-message">
               <p>{errorMessage}</p>
             </div>
           )}
-
-          <div className="form-options">
-            <div className="remember-me">
-              <input
-                type="checkbox"
-                id="rememberMe"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-              />
-              <label htmlFor="rememberMe">Ingat saya</label>
-            </div>
-            <button
-              type="button"
-              className="forgot-password"
-              onClick={handleForgotPassword}
-            >
-              Lupa Password
-            </button>
-          </div>
 
           <button
             type="submit"
@@ -121,13 +94,6 @@ export default function SignIn() {
           >
             {isLoading ? "Processing..." : "Sign In"}
           </button>
-
-          <div className="signup-link">
-            Belum punya akun?{" "}
-            <a href="/auth/sign-up" className="signup">
-              Sign Up
-            </a>
-          </div>
         </form>
       </div>
     </div>

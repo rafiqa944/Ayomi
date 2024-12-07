@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth"; // Import Firebase Authentication
-// import { auth } from "../../config/firebaseConfig"; // Import konfigurasi Firebase
-import { auth } from "../../config/firebaseConfig";
-import { Link } from "react-router-dom"; // Import Link untuk navigasi
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth, db } from "../../config/firebaseConfig";
+import { getDoc, doc } from "firebase/firestore";
 import "./SignIn.css";
 
 export default function SignIn() {
@@ -24,17 +23,27 @@ export default function SignIn() {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      alert(`Welcome back, ${user.email}!`);
-      
-      // Simpan session berdasarkan opsi Remember Me
-      const storage = rememberMe ? localStorage : sessionStorage;
-      storage.setItem("user", JSON.stringify(user));
+      // Fetch user data from Firestore to check role
+      const userDoc = await getDoc(doc(db, "users", user.uid));
 
-      setIsLoading(false);
-      navigate("/landingpage");
+      if (userDoc.exists() && userDoc.data().role === "user") {
+        alert(`Selamat datang kembali, ${user.email}!`);
+
+        // Save session based on Remember Me option
+        const storage = rememberMe ? localStorage : sessionStorage;
+        storage.setItem("user", JSON.stringify(user));
+
+        setIsLoading(false);
+        navigate("/landingpage");
+      } else {
+        alert("Akun ini tidak memiliki akses sebagai user.");
+        setIsLoading(false);
+        // Sign out user if role is not user
+        await signOut(auth);
+      }
     } catch (error) {
       console.error("Login failed:", error);
-      alert(`Login failed: ${error.message}`);
+      alert(`Login gagal: ${error.message}`);
       setIsLoading(false);
     }
   };
@@ -49,18 +58,12 @@ export default function SignIn() {
 
   return (
     <div className="signin-container">
-      {/* Background Overlay */}
       <div className="background-overlay"></div>
-
-      {/* Left Section */}
       <div className="left-section">
         <h1 className="welcome-text">Selamat Datang!</h1>
       </div>
-
-      {/* Right Section */}
       <div className="right-section">
         <form className="signin-form" onSubmit={handleSignIn}>
-          {/* Email Input */}
           <div className="form-group">
             <label htmlFor="email" className="form-label">Username</label>
             <input
@@ -74,7 +77,6 @@ export default function SignIn() {
             />
           </div>
 
-          {/* Password Input */}
           <div className="form-group relative">
             <label htmlFor="password" className="form-label">Password</label>
             <input
@@ -95,7 +97,6 @@ export default function SignIn() {
             </button>
           </div>
 
-          {/* Remember Me and Forgot Password */}
           <div className="form-options">
             <div className="remember-me">
               <input
@@ -104,18 +105,10 @@ export default function SignIn() {
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
               />
-              <label htmlFor="rememberMe">Ingat saya</label>
+              <label htmlFor="rememberMe">Remember Me</label>
             </div>
-            <button
-              type="button"
-              className="forgot-password"
-              onClick={handleForgotPassword}
-            >
-              Lupa Password
-            </button>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className={`submit-button ${isLoading ? "loading" : ""}`}
@@ -124,12 +117,8 @@ export default function SignIn() {
             {isLoading ? "Processing..." : "Sign In"}
           </button>
 
-          {/* Sign Up Link */}
-          <div className="signup-link">
-            Belum punya akun?{" "}
-            <Link to="/signup" className="signup">
-              Sign Up
-            </Link>
+          <div className="forgot-password-link">
+            <a href="#!" onClick={handleForgotPassword}>Forgot Password?</a>
           </div>
         </form>
       </div>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import Navbar from '../../Components/Navbar';
-import Footer from '../../Components/Footer';
-import './FormDonasiSampah.css';
+import Navbar from "../../Components/Navbar";
+import Footer from "../../Components/Footer";
+import { db, collection, addDoc } from "../../config/firebaseConfig";  // Mengimpor Firebase
+import "./FormDonasiSampah.css";
 
 const DonationForm = () => {
   const [formData, setFormData] = useState({
@@ -29,9 +30,37 @@ const DonationForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    try {
+      // Menyimpan data ke Firestore
+      const docRef = await addDoc(collection(db, "donations"), {
+        fullName: formData.fullName,
+        phone: formData.phone,
+        address: formData.address,
+        wasteType: formData.wasteType,
+        weight: formData.weight,
+        notes: formData.notes,
+        wasteImage: formData.wasteImage ? formData.wasteImage.name : null, // Menyimpan nama gambar jika ada
+      });
+      console.log("Document written with ID: ", docRef.id);
+      
+      // Reset form setelah pengiriman data
+      setFormData({
+        fullName: '',
+        phone: '',
+        address: '',
+        wasteType: '',
+        weight: '',
+        notes: '',
+        wasteImage: null,
+      });
+      
+      alert("Form berhasil dikirim!");
+    } catch (e) {
+      console.error("Error adding document: ", e);
+      alert("Terjadi kesalahan, coba lagi.");
+    }
   };
 
   return (
@@ -49,6 +78,7 @@ const DonationForm = () => {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="Masukkan Nama Lengkap"
+                required
               />
             </div>
 
@@ -60,6 +90,7 @@ const DonationForm = () => {
                 value={formData.address}
                 onChange={handleChange}
                 placeholder="Masukkan Alamat"
+                required
               />
             </div>
 
@@ -71,6 +102,7 @@ const DonationForm = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="Masukkan Nomor Handphone"
+                required
               />
             </div>
 
@@ -82,6 +114,7 @@ const DonationForm = () => {
                 value={formData.wasteType}
                 onChange={handleChange}
                 placeholder="Masukkan Jenis Sampah"
+                required
               />
             </div>
 
@@ -98,6 +131,7 @@ const DonationForm = () => {
                 value={formData.weight}
                 onChange={handleChange}
                 placeholder="Masukkan Berat"
+                required
               />
             </div>
           </div>
@@ -109,6 +143,7 @@ const DonationForm = () => {
               value={formData.notes}
               onChange={handleChange}
               placeholder="Masukkan Catatan Tambahan"
+              required
             />
           </div>
 

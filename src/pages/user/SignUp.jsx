@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-// import { auth, db } from "../../../firebaseConfig"; // Import Firebase
 import { auth, db } from "../../config/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
@@ -25,11 +24,7 @@ export default function SignUp() {
 
     try {
       // Register user with Firebase Authentication
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
       // Save additional user info to Firestore
@@ -39,6 +34,7 @@ export default function SignUp() {
         email,
         phone,
         address,
+        role: "user", // Save the user's role as "user"
       });
 
       alert("Pendaftaran berhasil!");
