@@ -105,7 +105,8 @@
     display: flex; /* Susun elemen dalam baris */
     justify-content: center; /* Pusatkan elemen secara horizontal */
     gap: 20px; /* Jarak antar elemen */
-    padding: 20px; /* Jarak keseluruhan dari tepi */
+    padding: 2
+    0px; /* Jarak keseluruhan dari tepi */
 }
 
 /* Gaya untuk setiap elemen */
