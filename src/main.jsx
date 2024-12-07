@@ -29,7 +29,6 @@ import SignIn2 from "./pages/admin/SignIn2.jsx"
 import Pengaturan from "./pages/user/Pengaturan.jsx";
 import UbahProfile from "./pages/user/UbahProfile.jsx";
 // import AdminTutorial from "./pages/admin/AdminTutorial.jsx";
-import AdminTutorial from "./pages/admin/AdminTutorial.jsx";
 
 
 
@@ -138,10 +137,10 @@ const router = createBrowserRouter([
     path: "/ubahprofile",
     element: < UbahProfile />,
   },  
-  {
-    path: "/admintutorial",
-    element: < AdminTutorial />,
-  },
+  // {
+  //   path: "/admintutorial",
+  //   element: < AdminTutorial />,
+  // },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

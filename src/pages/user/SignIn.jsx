@@ -2,7 +2,8 @@ import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth"; // Import Firebase Authentication
-import { auth } from "../../config/firebaseConfig"; // Import konfigurasi Firebase
+// import { auth } from "../../config/firebaseConfig"; // Import konfigurasi Firebase
+import { auth } from "../../config/firebaseConfig";
 import { Link } from "react-router-dom"; // Import Link untuk navigasi
 import "./SignIn.css";
 

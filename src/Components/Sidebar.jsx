@@ -30,7 +30,7 @@ const Sidebar = () => {
           <Link to="/datauser">User</Link>
         </li>
         <li className={`menuItem ${isActive("/logout")}`}>
-          <Link to="/logout">Logout</Link>
+          <Link to="/signin2">Logout</Link>
         </li>
       </ul>
     </div>

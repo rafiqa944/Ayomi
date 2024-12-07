@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { auth } from "../../../firebaseConfig";  // Impor auth dari firebaseConfig
+// import { auth } from "../../../firebaseConfig";  // Impor auth dari firebaseConfig
+import { auth } from "../../config/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";  // Impor signInWithEmailAndPassword dari firebase/auth
 import './SignIn2.css';
 
