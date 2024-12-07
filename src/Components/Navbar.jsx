@@ -102,7 +102,7 @@ const Navbar = () => {
             <ul className="dropdown-menu">
               <li><Link to="/service1">Pick Up</Link></li>
               <li><Link to="/service2">Drop Off</Link></li>
-              <li><Link to="/service3">Ayomi Points</Link></li>
+              <li><Link to="/ayomipoint">Ayomi Points</Link></li>
             </ul>
           )}
         </li>
