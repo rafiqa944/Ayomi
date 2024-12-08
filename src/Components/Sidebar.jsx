@@ -12,9 +12,9 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
-      <Link to="/">
+
         <img src={LogoP} alt="Logo" className='LogoP' />
-      </Link>
+
       <ul className="menu">
         <li className={`menuItem ${isActive("/dashboard")}`}>
           <Link to="/dashboard">Dashboard</Link>

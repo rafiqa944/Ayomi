@@ -4,6 +4,7 @@ import Footer from '../../Components/Footer'; // Import Footer component
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './Pengaturan.css';
 
+
 const UserProfile = () => {
   return (
     <>
@@ -16,6 +17,7 @@ const UserProfile = () => {
             <p className="profile-points">0 Point</p>
         </div>
 
+
         <div className="profile-options">
           {/* Gunakan Link untuk tombol-tombol */}
           <Link to="/ubahprofile" className="profile-link">
@@ -25,12 +27,14 @@ const UserProfile = () => {
             </button>
           </Link>
 
-          <Link to="/ayomipoints" className="profile-link">
+
+          <Link to="/ayomipoint" className="profile-link">
             <button className="profile-button">
               Ayomi Points
               <span className="arrow">&gt;</span>
             </button>
           </Link>
+
 
           <Link to="/donasi" className="profile-link">
             <button className="profile-button">
@@ -39,7 +43,8 @@ const UserProfile = () => {
             </button>
           </Link>
 
-          <Link to="/logout" className="profile-link">
+
+          <Link to="/signin" className="profile-link">
             <button className="profile-button">
               Sign Out
               <span className="arrow">&gt;</span>
@@ -51,5 +56,6 @@ const UserProfile = () => {
     </>
   );
 };
+
 
 export default UserProfile;
