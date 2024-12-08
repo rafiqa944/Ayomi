@@ -29,8 +29,7 @@
   justify-content: center;
   margin-left: 200px;
   align-items: center;
-  background-color: #e9ede8 !important; /* Menambahkan !important untuk memastikan ini diterapkan */
-  border: 2px solid #344C3D;
+  background-color: #B8C4B6 !important; /* Menambahkan !important untuk memastikan ini diterapkan */
   border-radius: 12px;
 }
 
@@ -45,10 +44,24 @@
 
 .paper-title {
   font-size: 1.3rem;
-  color: #344C3D;
+  color: white;
 }
 
 .paper-weight {
   font-size: 1.5rem;
-  color: #344C3D; /* primary color */
+  color: #5D5D65; /* primary color */
+  font-weight: bold;
 }
+
+/* Tambahkan di Dashboard.css */
+
+.paper-box {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.paper-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer; /* Tambahkan pointer untuk indikasi klik */
+}
+

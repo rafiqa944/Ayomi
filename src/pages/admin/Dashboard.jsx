@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../config/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-import Sidebar from "../../Components/Sidebar";  // Import Sidebar
-import "./Dashboard.css"; // Import CSS file
+import Sidebar from "../../Components/Sidebar";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import "./Dashboard.css";
 
 const DashboardAdmin = () => {
   const [totalWeight, setTotalWeight] = useState(0);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     const fetchTotalWeight = async () => {
@@ -21,31 +23,33 @@ const DashboardAdmin = () => {
           (sum, donation) => sum + parseFloat(donation.weight || 0),
           0
         );
-        setTotalWeight(total); // Update the total weight state
+        setTotalWeight(total);
       } catch (error) {
         console.error("Error fetching donations:", error);
       }
     };
 
     fetchTotalWeight();
-  }, []); // Fetch total weight once on component mount
+  }, []);
+
+  // Navigate to summary page when the box is clicked
+  const handleBoxClick = () => {
+    navigate("/ringkasansampah"); // Redirect to the Summary page
+  };
 
   return (
     <div className="dashboard-container">
-      <Sidebar /> {/* Sidebar */}
+      <Sidebar />
       <div className="dashboard-content">
-        <h4 className="dashboard-title">
-          Dashboard Admin
-        </h4>
-        {/* Add space between header and the paper box */}
+        <h4 className="dashboard-title">Dashboard Admin</h4>
         <div className="paper-container">
-          <div className="paper-box">
-            <h6 className="paper-title">
-              Total Sampah Yang Berhasil Dikumpulkan:
-            </h6>
-            <h4 className="paper-weight">
-              {totalWeight} kg
-            </h4>
+          <div
+            className="paper-box"
+            onClick={handleBoxClick} // Add click event
+            style={{ cursor: "pointer" }} // Add pointer cursor for better UX
+          >
+            <h6 className="paper-title">Total Sampah Yang Berhasil Dikumpulkan:</h6>
+            <h4 className="paper-weight">{totalWeight} kg</h4>
           </div>
         </div>
       </div>
