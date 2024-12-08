@@ -1,4 +1,3 @@
-// src/pages/DonationList.jsx
 import React, { useState, useEffect, useMemo } from "react";
 import { MaterialReactTable } from "material-react-table";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
@@ -11,6 +10,7 @@ const DonationList = () => {
   const [donations, setDonations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, donationId: null });
+  const [totalWeight, setTotalWeight] = useState(0); // State for total weight
 
   useEffect(() => {
     const fetchDonations = async () => {
@@ -22,6 +22,10 @@ const DonationList = () => {
           ...doc.data(),
         }));
         setDonations(donationsData);
+
+        // Calculate the total weight of donations
+        const total = donationsData.reduce((sum, donation) => sum + parseFloat(donation.weight || 0), 0);
+        setTotalWeight(total); // Update total weight
       } catch (error) {
         console.error("Error fetching donations:", error);
       } finally {
@@ -38,6 +42,10 @@ const DonationList = () => {
       await deleteDoc(donationDocRef);
       setDonations(donations.filter((d) => d.id !== donationId));
       setConfirmDialog({ isOpen: false, donationId: null });
+
+      // Recalculate the total weight after deletion
+      const newTotal = donations.filter((d) => d.id !== donationId).reduce((sum, donation) => sum + parseFloat(donation.weight || 0), 0);
+      setTotalWeight(newTotal);
     } catch (error) {
       console.error("Failed to delete donation:", error);
     }
@@ -67,7 +75,6 @@ const DonationList = () => {
         header: "Actions",
         Cell: ({ row }) => (
           <Box sx={{ display: "flex", gap: "1rem" }}>
-            {/* Hanya tombol Delete */}
             <Tooltip title="Delete">
               <IconButton
                 color="error"
@@ -80,7 +87,7 @@ const DonationList = () => {
             </Tooltip>
           </Box>
         ),
-        size: 100, // Sesuaikan ukuran kolom
+        size: 100,
       },
     ],
     []
@@ -107,6 +114,8 @@ const DonationList = () => {
             },
           }}
         />
+        <h3>Total Berat Donasi: {totalWeight} kg</h3> {/* Display the total weight */}
+
         {/* Delete Confirmation Dialog */}
         <Dialog
           open={confirmDialog.isOpen}

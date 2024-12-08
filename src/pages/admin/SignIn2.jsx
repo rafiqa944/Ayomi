@@ -3,8 +3,8 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../config/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore"; // Import Firestore functions
-import { db } from "../../config/firebaseConfig"; // Import Firestore configuration
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../config/firebaseConfig";
 import './SignIn2.css';
 
 export default function SignIn() {
@@ -21,14 +21,14 @@ export default function SignIn() {
     setErrorMessage("");
 
     try {
-      // Login dengan Firebase Authentication
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Periksa apakah pengguna adalah admin
       const userDoc = await getDoc(doc(db, "users", user.uid));
       if (userDoc.exists() && userDoc.data().role === "admin") {
-        alert("Login successful! Welcome Admin.");
+        const adminName = userDoc.data().name; // Ambil nama admin dari Firestore
+        localStorage.setItem("adminName", adminName); // Simpan nama admin di localStorage
+        alert(`Login successful! Welcome ${adminName}.`);
         navigate("/dashboard");
       } else {
         throw new Error("Unauthorized: Only admins can log in.");

@@ -33,7 +33,6 @@ import DonationList from "./pages/admin/DonationList.jsx";
 // import AdminTutorial from "./pages/admin/AdminTutorial.jsx";
 
 
-
 const router = createBrowserRouter([
   {
     path: "/chatbot",
