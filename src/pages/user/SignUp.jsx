@@ -21,12 +21,12 @@ export default function SignUp() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+  
     try {
       // Register user with Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
+  
       // Save additional user info to Firestore
       await setDoc(doc(db, "users", user.uid), {
         fullName,
@@ -36,17 +36,18 @@ export default function SignUp() {
         address,
         role: "user", // Save the user's role as "user"
       });
-
+  
       alert("Pendaftaran berhasil!");
       setIsLoading(false);
       navigate("/landingpage");
     } catch (error) {
-      console.error("Error during signup:", error);
-      alert("Terjadi kesalahan saat pendaftaran.");
+      console.error("Error during signup:", error); // Log the full error object for debugging
+      alert(`Terjadi kesalahan saat pendaftaran: ${error.message}`);
       setIsLoading(false);
     }
   };
-
+  
+  
   return (
     <div className="signup-container">
       <div className="background-overlay"></div>
