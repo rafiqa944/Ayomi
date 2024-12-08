@@ -129,3 +129,14 @@ nav {
 .dropdown-icon.open {
   transform: rotate(180deg);
 }
+
+ul li a.active {
+  font-weight: bold; /* Menebalkan teks */
+  color: #fff;    /* Warna menu aktif */
+
+}
+
+.dropdown-menu li a.active {
+  font-weight: bold;
+  color: #fff;
+}

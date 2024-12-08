@@ -29,6 +29,8 @@ const Navbar = () => {
     auth.signOut();
   };
 
+  const isActive = (path) => location.pathname.startsWith(path) ? 'active' : '';
+
   return (
     <nav className="container">
       <Link to="/landingpage">
@@ -46,22 +48,26 @@ const Navbar = () => {
           </button>
           {dropdownVisible && (
             <ul className="dropdown-menu">
-              <li><Link to="/FormDonasiSampah">Pick Up</Link></li>
-              <li><Link to="/service2">Drop Off</Link></li>
-              <li><Link to="/ayomipoint">Ayomi Points</Link></li>
+              <li><Link to="/FormDonasiSampah" className={isActive('/FormDonasiSampah')}>Pick Up</Link></li>
+              <li><Link to="/service2" className={isActive('/service2')}>Drop Off</Link></li>
+              <li><Link to="/ayomipoint" className={isActive('/ayomipoint')}>Ayomi Points</Link></li>
             </ul>
           )}
         </li>
 
-        <li><Link to="/events">Events</Link></li>
-        <li><Link to="/aboutus">About Us</Link></li>
+        <li><Link to="/events" className={isActive('/events')}>Events</Link></li>
+        <li><Link to="/aboutus" className={isActive('/aboutus')}>About Us</Link></li>
 
         {!user ? (
           // Jika belum login, tampilkan link Sign In
-          <li><Link to="/signin">Sign In</Link></li>
+          <li>
+            <button className="btn">
+            <Link to="/signin" className={isActive('/signin')}>Sign In</Link>
+            </button>
+          </li>
         ) : (
           // Jika sudah login, tampilkan link Profile
-          <li><Link to="/pengaturan">Profile</Link></li>
+          <li><Link to="/pengaturan" className={isActive('/pengaturan')}>Profile</Link></li>
         )}
 
         {/* <li>
