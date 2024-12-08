@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../config/firebaseConfig"; // Import Firebase config
 import "./AyomiPoint.css";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
@@ -18,39 +20,45 @@ import pointpot from "../../assets/foto/pointpot.png";
 import pointtas from "../../assets/foto/pointtas.png";
 import back from '../../assets/foto/back.png';
 
+
 const AyomiPoint = () => {
-  const [selectedTab, setSelectedTab] = useState("all"); 
+  const [selectedTab, setSelectedTab] = useState("all");
+  const [userName, setUserName] = useState("User"); // Default name
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserName(user.displayName || user.email); // Set user name or email if available
+      } else {
+        setUserName("User"); // Fallback to default name
+      }
+    });
+
+    return () => unsubscribe(); // Clean up on unmount
+  }, []);
 
   return (
     <div className="ayomipoint">
       <Navbar />
       <div className="undo-container">
         <button className="undo-button" onClick={() => window.history.back()}>
-        <img 
-            src={back}
-            alt="undo-icon" 
-            className="undo-icon" 
-        />
+          <img src={back} alt="undo-icon" className="undo-icon" />
         </button>
-        </div>
+      </div>
       <div className="ayomipoint-content">
         <div className="info-section">
           <div className="user-info">
             <img src={iconprofile} alt="User Avatar" className="user-avatar" />
             <div className="points-text">
-              <p><strong>Rafiqa Nurcahyani Ibrahim</strong></p>
+              <p><strong>{userName}</strong></p> {/* Display dynamic user name */}
             </div>
           </div>
           <div className="points-info">
-            <img
-              src={iconayomipoints}
-              alt="Ayomi Point Icon"
-              className="ayomi-icon"
-            />
+            <img src={iconayomipoints} alt="Ayomi Point Icon" className="ayomi-icon" />
             <div className="points-text">
               <p><strong>Ayomi Point</strong></p>
               <p className="points-number">0</p>
@@ -58,9 +66,11 @@ const AyomiPoint = () => {
           </div>
         </div>
 
+
         <div className="page-title">
           <h1>Tukar Pointmu!</h1>
         </div>
+
 
         <div className="feature-items">
           <div
@@ -69,6 +79,7 @@ const AyomiPoint = () => {
             >
               <p>Semua</p>
           </div>
+
 
           <div
             className={`feature-item ${selectedTab === "ewallet" ? "active" : ""}`}
@@ -90,6 +101,7 @@ const AyomiPoint = () => {
           </div>
         </div>
 
+
         <div className="exchange-section">
         {selectedTab === "all" && (
             <div className="all-sections">
@@ -107,6 +119,7 @@ const AyomiPoint = () => {
                   <button className="exchange-button">Tukar</button>
                 </div>
 
+
                 <div className="exchange-card">
                 <img src={shopeepay} alt="ShopeePay" className="exchange-image" />
                 <div className="exchange-details">
@@ -118,6 +131,7 @@ const AyomiPoint = () => {
                 </div>
                 <button className="exchange-button">Tukar</button>
               </div>
+
 
               <div className="exchange-card">
                 <img src={gopay} alt="GoPay" className="exchange-image" />
@@ -131,6 +145,7 @@ const AyomiPoint = () => {
                 <button className="exchange-button">Tukar</button>
               </div>
 
+
               <div className="exchange-card">
                 <img src={ovo} alt="Ovo" className="exchange-image" />
                 <div className="exchange-details">
@@ -142,9 +157,10 @@ const AyomiPoint = () => {
                 </div>
                 <button className="exchange-button">Tukar</button>
               </div>
-              
+             
                 {/* Add more E-Wallet cards here */}
               </div>
+
 
               <div className="voucher-section">
                 {/* Voucher Cards */}
@@ -160,6 +176,7 @@ const AyomiPoint = () => {
                   <button className="exchange-button">Tukar</button>
                 </div>
 
+
                 <div className="exchange-card">
                     <img src={Indomaret} alt="Indomaret" className="exchange-image" />
                     <div className="exchange-details">
@@ -171,6 +188,7 @@ const AyomiPoint = () => {
                     </div>
                     <button className="exchange-button">Tukar</button>
                   </div>
+
 
                   <div className="exchange-card">
                     <img src={Alfamidi} alt="Alfamidi" className="exchange-image" />
@@ -186,6 +204,7 @@ const AyomiPoint = () => {
                 {/* Add more Voucher cards here */}
               </div>
 
+
               <div className="kerajinan-section">
                 {/* Kerajinan Cards */}
                 <div className="exchange-card">
@@ -200,6 +219,7 @@ const AyomiPoint = () => {
                   <button className="exchange-button">Tukar</button>
                 </div>
 
+
                 <div className="exchange-card">
                 <img src={pointmosaik} alt="Point Mosaik" className="exchange-image" />
                 <div className="exchange-details">
@@ -211,6 +231,7 @@ const AyomiPoint = () => {
                 </div>
                 <button className="exchange-button">Tukar</button>
               </div>
+
 
               <div className="exchange-card">
                 <img src={pointperca} alt="Point Perca" className="exchange-image" />
@@ -224,6 +245,7 @@ const AyomiPoint = () => {
                 <button className="exchange-button">Tukar</button>
               </div>
 
+
               <div className="exchange-card">
                 <img src={pointpot} alt="Point Pot" className="exchange-image" />
                 <div className="exchange-details">
@@ -235,6 +257,7 @@ const AyomiPoint = () => {
                 </div>
                 <button className="exchange-button">Tukar</button>
               </div>
+
 
               <div className="exchange-card">
                 <img src={pointtas} alt="Point Tas" className="exchange-image" />
@@ -252,6 +275,7 @@ const AyomiPoint = () => {
             </div>
           )}
 
+
           {selectedTab === "ewallet" && (
             <div className="ewallet-section">
               <div className="exchange-card">
@@ -266,6 +290,7 @@ const AyomiPoint = () => {
                 <button className="exchange-button">Tukar</button>
               </div>
 
+
               <div className="exchange-card">
                 <img src={shopeepay} alt="ShopeePay" className="exchange-image" />
                 <div className="exchange-details">
@@ -278,6 +303,7 @@ const AyomiPoint = () => {
                 <button className="exchange-button">Tukar</button>
               </div>
 
+
               <div className="exchange-card">
                 <img src={gopay} alt="GoPay" className="exchange-image" />
                 <div className="exchange-details">
@@ -289,6 +315,7 @@ const AyomiPoint = () => {
                 </div>
                 <button className="exchange-button">Tukar</button>
               </div>
+
 
               <div className="exchange-card">
                 <img src={ovo} alt="Ovo" className="exchange-image" />
@@ -304,6 +331,7 @@ const AyomiPoint = () => {
             </div>
           )}
 
+
           {selectedTab === "voucher" && (
             <div className="voucher-section">
               <div className="exchange-card">
@@ -318,6 +346,7 @@ const AyomiPoint = () => {
                     <button className="exchange-button">Tukar</button>
                   </div>
 
+
                   <div className="exchange-card">
                     <img src={Alfamidi} alt="Alfamidi" className="exchange-image" />
                     <div className="exchange-details">
@@ -329,6 +358,7 @@ const AyomiPoint = () => {
                     </div>
                     <button className="exchange-button">Tukar</button>
                   </div>
+
 
                   <div className="exchange-card">
                     <img src={Indomaret} alt="Indomaret" className="exchange-image" />
@@ -344,6 +374,7 @@ const AyomiPoint = () => {
             </div>
           )}
 
+
           {selectedTab === "kerajinan" && (
             <div className="kerajinan-section">
           <div className="exchange-card">
@@ -358,6 +389,7 @@ const AyomiPoint = () => {
                 <button className="exchange-button">Tukar</button>
               </div>
 
+
               <div className="exchange-card">
                 <img src={pointmosaik} alt="Point Mosaik" className="exchange-image" />
                 <div className="exchange-details">
@@ -369,6 +401,7 @@ const AyomiPoint = () => {
                 </div>
                 <button className="exchange-button">Tukar</button>
               </div>
+
 
               <div className="exchange-card">
                 <img src={pointperca} alt="Point Perca" className="exchange-image" />
@@ -382,6 +415,7 @@ const AyomiPoint = () => {
                 <button className="exchange-button">Tukar</button>
               </div>
 
+
               <div className="exchange-card">
                 <img src={pointpot} alt="Point Pot" className="exchange-image" />
                 <div className="exchange-details">
@@ -393,6 +427,7 @@ const AyomiPoint = () => {
                 </div>
                 <button className="exchange-button">Tukar</button>
               </div>
+
 
               <div className="exchange-card">
                 <img src={pointtas} alt="Point Tas" className="exchange-image" />
@@ -413,5 +448,6 @@ const AyomiPoint = () => {
     </div>
   );
 };
+
 
 export default AyomiPoint;
