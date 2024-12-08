@@ -19,10 +19,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app); // Initialize Firestore
+const firestore = getFirestore(app);
+const auth = getAuth(app);
 
 // Initialize and export auth
-export const auth = getAuth(app);
+// export const auth = getAuth(app);
 // export { db }; // Export db (Firestore)
 export { db, collection, addDoc }; // Mengekspor objek dan fungsi yang dibutuhkan
-
+export { firestore };
+export { auth };
 
