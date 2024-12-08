@@ -25,7 +25,7 @@ const Events = () => {
         </div>
             <div className='ayoo'>
             <h2>Kegiatan komunitas</h2>
-            <img src={ayom} alt='untuk h2' className='ayomtrash'/>
+ 
         </div>  
         <div className='text-paragraf-container'>
             <div className='foto-events'>
