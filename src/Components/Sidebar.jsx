@@ -23,11 +23,13 @@ const Sidebar = () => {
           <Link to="/admintutorial">Tutorial</Link>
         </li>
         <li className={`menuItem ${isActive("/donate")}`}>
-          <Link to="/donate">Donate</Link>
+          <Link to="/donationlist">Donate</Link>
         </li>
-        {/* Ubah path dari "/user" ke "/datauser" */}
         <li className={`menuItem ${isActive("/datauser")}`}>
           <Link to="/datauser">User</Link>
+        </li>
+        <li className={`menuItem ${isActive("/dataevent")}`}>
+          <Link to="/registrationlist">Event</Link>
         </li>
         <li className={`menuItem ${isActive("/logout")}`}>
           <Link to="/signin2">Logout</Link>
