@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../../Components/Navbar';
 import Footer from '../../Components/Footer';
 import iconprofile from "../../assets/icon/iconprofile.png";
-import qrCode from "../../assets/icon/qrCode.png";
+import back from '../../assets/foto/back.png';
 import QRCode from "react-qr-code"; // Import QRCode component
 import { auth, db } from "../../config/firebaseConfig"; // Firebase configuration
 import { doc, getDoc, updateDoc } from "firebase/firestore"; // Firestore operations
@@ -85,6 +85,15 @@ const UserProfile = () => {
   return (
     <div className="ubah-profile">
       <Navbar />
+      <div className="undo-container">
+        <button className="undo-button" onClick={() => window.history.back()}>
+        <img 
+            src={back}
+            alt="undo-icon" 
+            className="undo-icon" 
+        />
+        </button>
+        </div>
       <div className="teks-ubah-profile" style={{ color: '#344C3D' }}>
         <h1>Ubah Profile</h1>
       </div>
