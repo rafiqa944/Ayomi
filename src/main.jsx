@@ -28,6 +28,10 @@ import Dashboard from "./pages/admin/Dashboard.jsx";
 import SignIn2 from "./pages/admin/SignIn2.jsx"
 import Pengaturan from "./pages/user/Pengaturan.jsx";
 import UbahProfile from "./pages/user/UbahProfile.jsx";
+import RegistrationList from "./pages/admin/RegistrationList.jsx";
+import DonationList from "./pages/admin/DonationList.jsx";
+// import AdminTutorial from "./pages/admin/AdminTutorial.jsx";
+
 
 
 const router = createBrowserRouter([
@@ -134,7 +138,19 @@ const router = createBrowserRouter([
   {
     path: "/ubahprofile",
     element: < UbahProfile />,
-  },  
+  }, 
+  {
+    path: "/registrationlist",
+    element: < RegistrationList />,
+  }, 
+  {
+    path: "/donationlist",
+    element: < DonationList />,
+  },
+  // {
+  //   path: "/admintutorial",
+  //   element: < AdminTutorial />,
+  // },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

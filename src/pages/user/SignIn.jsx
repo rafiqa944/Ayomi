@@ -2,9 +2,10 @@ import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth"; // Import Firebase Authentication
-// import { auth } from "../../config/firebaseConfig"; // Import konfigurasi Firebase
 import { auth } from "../../config/firebaseConfig";
-import { Link } from "react-router-dom"; // Import Link untuk navigasi
+import { Link } from "react-router-dom"; 
+import { getDoc, doc } from "firebase/firestore"; // Import Firestore functions
+import { db } from "../../config/firebaseConfig"; // Assuming you have Firestore initialized
 import "./SignIn.css";
 
 export default function SignIn() {
@@ -24,14 +25,33 @@ export default function SignIn() {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      alert(`Welcome back, ${user.email}!`);
-      
-      // Simpan session berdasarkan opsi Remember Me
-      const storage = rememberMe ? localStorage : sessionStorage;
-      storage.setItem("user", JSON.stringify(user));
+      // Fetch user role from Firestore
+      const userDocRef = doc(db, "users", user.uid); // Assuming your user document is in the 'users' collection
+      const userDocSnap = await getDoc(userDocRef);
 
-      setIsLoading(false);
-      navigate("/landingpage");
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+        const userRole = userData.role; // Assuming 'role' field in Firestore
+
+        if (userRole === 'admin') {
+          alert("Admins are not allowed to sign in to this platform.");
+          signOut(auth); // Optionally, sign out the admin user
+          setIsLoading(false);
+          return;
+        }
+
+        // If user is 'user' role, proceed
+        alert(`Welcome back, ${user.email}!`);
+
+        const storage = rememberMe ? localStorage : sessionStorage;
+        storage.setItem("user", JSON.stringify(user));
+
+        setIsLoading(false);
+        navigate("/landingpage");
+      } else {
+        alert("No role found for this user.");
+        setIsLoading(false);
+      }
     } catch (error) {
       console.error("Login failed:", error);
       alert(`Login failed: ${error.message}`);
@@ -49,18 +69,12 @@ export default function SignIn() {
 
   return (
     <div className="signin-container">
-      {/* Background Overlay */}
       <div className="background-overlay"></div>
-
-      {/* Left Section */}
       <div className="left-section">
         <h1 className="welcome-text">Selamat Datang!</h1>
       </div>
-
-      {/* Right Section */}
       <div className="right-section">
         <form className="signin-form" onSubmit={handleSignIn}>
-          {/* Email Input */}
           <div className="form-group">
             <label htmlFor="email" className="form-label">Username</label>
             <input
@@ -74,7 +88,6 @@ export default function SignIn() {
             />
           </div>
 
-          {/* Password Input */}
           <div className="form-group relative">
             <label htmlFor="password" className="form-label">Password</label>
             <input
@@ -95,7 +108,6 @@ export default function SignIn() {
             </button>
           </div>
 
-          {/* Remember Me and Forgot Password */}
           <div className="form-options">
             <div className="remember-me">
               <input
@@ -115,7 +127,6 @@ export default function SignIn() {
             </button>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className={`submit-button ${isLoading ? "loading" : ""}`}
@@ -124,7 +135,6 @@ export default function SignIn() {
             {isLoading ? "Processing..." : "Sign In"}
           </button>
 
-          {/* Sign Up Link */}
           <div className="signup-link">
             Belum punya akun?{" "}
             <Link to="/signup" className="signup">

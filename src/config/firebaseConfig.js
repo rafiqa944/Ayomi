@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth"; // Import getAuth
-import { getFirestore } from "firebase/firestore"; // Import getFirestore
+import { getFirestore, collection, addDoc } from 'firebase/firestore';  // Pastikan ini adalah import yang benar
 import { getAnalytics } from "firebase/analytics"; // Import getAnalytics
 
 // Your web app's Firebase configuration
@@ -22,4 +22,7 @@ const db = getFirestore(app); // Initialize Firestore
 
 // Initialize and export auth
 export const auth = getAuth(app);
-export { db }; // Export db (Firestore)
+// export { db }; // Export db (Firestore)
+export { db, collection, addDoc }; // Mengekspor objek dan fungsi yang dibutuhkan
+
+
