@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../Components/Navbar"; // Panggil Navbar
 import Footer from "../../Components/Footer"; // Panggil Footer
 import { db } from "../../config/firebaseConfig"; // Import Firestore
 import { collection, addDoc } from "firebase/firestore"; // Import fungsi Firestore
+import { getAuth, onAuthStateChanged } from "firebase/auth"; // Import Firebase Authentication
+import { useNavigate } from "react-router-dom"; // Untuk navigasi
 import "./FormPendaftaranKegiatan.css";
 
 const RegistrationForm = () => {
@@ -16,6 +18,9 @@ const RegistrationForm = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
+  const [user, setUser] = useState(null); // Untuk menyimpan data pengguna yang login
+  const [showNotification, setShowNotification] = useState(false); // Untuk menyimpan status notifikasi
+  const navigate = useNavigate(); // Untuk navigasi ke halaman login
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,6 +53,39 @@ const RegistrationForm = () => {
 
     setIsSubmitting(false);
   };
+
+  // Cek apakah pengguna sudah login
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser); // Simpan data pengguna yang login
+        setShowNotification(false); // Jika sudah login, sembunyikan notifikasi
+      } else {
+        setUser(null); // Pengguna belum login
+        setShowNotification(true); // Tampilkan notifikasi untuk login
+        navigate("/signin"); // Arahkan ke halaman login jika belum login
+      }
+    });
+  }, [navigate]);
+
+  if (!user) {
+    return (
+      <div>
+        {/* Panggil Navbar di atas */}
+        <Navbar />
+
+        {/* Notifikasi jika pengguna belum login */}
+        {showNotification && (
+          <div className="notification">
+            <p>Anda perlu SignIn terlebih dahulu untuk melakukan pendaftaran.</p>
+          </div>
+        )}
+
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div>

@@ -1,22 +1,67 @@
-/* src/pages/Dashboard.css */
+/* src/styles/DashboardAdmin.css */
 
 .dashboard-container {
-    display: flex;
-  }
-  
-  .dashboard-content {
-    margin-left: 250px; /* Memberikan ruang untuk sidebar */
-    padding: 5px;
-    flex-grow: 1; /* Memastikan konten mengisi sisa ruang yang tersedia */
-  }
-  
-  .dashboard-content h1 {
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  .dashboard-content p {
-    font-size: 1.2rem;
-    color: #555;
-  }
-  
+  display: flex;
+}
+
+.dashboard-content {
+  flex-grow: 1;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.paper-container {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paper-box {
+  padding: 16px;
+  width: 550px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  margin-left: 200px;
+  align-items: center;
+  background-color: #B8C4B6 !important; /* Menambahkan !important untuk memastikan ini diterapkan */
+  border-radius: 12px;
+}
+
+.dashboard-title {
+  font-size: 2rem;  /* Membuat lebih besar */
+  font-weight: bold;  /* Membuat tulisan tebal */
+  text-align: left;   /* Membuat teks rata kiri */
+  margin-left: 200px;  /* Memberikan sedikit jarak ke kiri */
+  margin-top: 70px;
+  color: #344C3D;
+}
+
+.paper-title {
+  font-size: 1.3rem;
+  color: white;
+}
+
+.paper-weight {
+  font-size: 1.5rem;
+  color: #5D5D65; /* primary color */
+  font-weight: bold;
+}
+
+/* Tambahkan di Dashboard.css */
+
+.paper-box {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.paper-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer; /* Tambahkan pointer untuk indikasi klik */
+}
+

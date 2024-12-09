@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth"; // Import getAuth
 import { getFirestore, collection, addDoc } from 'firebase/firestore';  // Pastikan ini adalah import yang benar
 import { getAnalytics } from "firebase/analytics"; // Import getAnalytics
+import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -19,10 +20,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app); // Initialize Firestore
+const firestore = getFirestore(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
 
 // Initialize and export auth
-export const auth = getAuth(app);
+// export const auth = getAuth(app);
 // export { db }; // Export db (Firestore)
 export { db, collection, addDoc }; // Mengekspor objek dan fungsi yang dibutuhkan
-
+export { firestore };
+export { auth };
+export { storage };
 

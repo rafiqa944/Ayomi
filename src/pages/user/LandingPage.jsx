@@ -52,7 +52,7 @@ const LandingPage = () => {
               <span>bisa jadi</span> <br />
               <span>Kerajinan?</span>
             </h2>
-            <Link to="Kerajinansampah">
+            <Link to="/Kerajinansampah">
               <button className="sampah-btn">Lihat Selengkapnya</button>
             </Link>
           </div>
@@ -61,7 +61,9 @@ const LandingPage = () => {
             <img src={pottanaman} alt="foto pot" className="gallery-item2" />
             <div className="gallery-item2-title">
               Pot tanaman dari galon bekas
-              <a className="gallery-item2-link">Selengkapnya</a>
+              <Link to="/Tutorialkerajinansampah" className="gallery-item2-link">
+                Selengkapnya
+              </Link>
             </div>
           </div>
 
@@ -94,7 +96,7 @@ const LandingPage = () => {
             <span> terbuka,</span> <br />
             <span> daftar yuk!</span> <br />
           </h2>
-          <Link to="Events">
+          <Link to="/Events">
             <button className="ayomi-btn">Lihat Selengkapnya</button>
           </Link>
         </div>
@@ -113,7 +115,7 @@ const LandingPage = () => {
               membersihkan pantai sambil meningkatkan kesadaran akan
               pentingnya menjaga ekosistem laut.
             </p>
-            <Link to="Events">
+            <Link to="/FormPendaftaranKegiatan">
               <button className="daftar-button">Daftar Sekarang</button>
             </Link>
           </div>
@@ -136,7 +138,7 @@ const LandingPage = () => {
               dapat mengembangkan kecintaan terhadap lingkungan dan
               menjadi agen perubahan di komunitas mereka.
             </p>
-            <Link to="Events">
+            <Link to="/FormPendaftaranKegiatan">
               <button className="sosialisasi-button">Daftar Sekarang</button>
             </Link>
           </div>
@@ -162,13 +164,14 @@ const LandingPage = () => {
               kamu bisa mendaur ulang dengan ukuran kecil seperti satu botol plastik.
             </p>
           </div>
-          <div className="layanan-card">
+          <div className="layanan-card"><Link to="/ayomipoint">
             <img src={iconayomipoints} alt="Icon Ayomi Points" className="layanan-icon" />
             <h3>Ayomi Points</h3>
             <p>
               Ayomi mengkonversi sampahmu menjadi mata uang digital yang dapat kamu belanjakan,
               atau tukarkan dengan beragam produk menarik.
             </p>
+            </Link>
           </div>
         </div>
 
@@ -177,49 +180,49 @@ const LandingPage = () => {
         <p>Lihat semua jenis sampah yang kami daur ulang</p>
         <div className="jenis-sampah-container">
           <div className="jenis-sampah-card">
-            <Link to ="JenisKertas">
+            <Link to ="/JenisKertas">
               <img src={iconkertas} alt="Kertas" />
               <h3>Kertas</h3>
             </Link>
           </div>
           <div className="jenis-sampah-card">
-            <Link to ="JenisPlastik">
+            <Link to ="/JenisPlastik">
             <img src={iconplastik} alt="Plastik" />
             <h3>Plastik</h3>
             </Link>
           </div>
           <div className="jenis-sampah-card">
-            <Link to ="JenisAluminium">
+            <Link to ="/JenisAluminium">
             <img src={iconaluminium} alt="Aluminium" />
             <h3>Aluminium</h3>
             </Link>
           </div>
           <div className="jenis-sampah-card">
-            <Link to = "JenisBesiLogam">
+            <Link to = "/JenisBesiLogam">
             <img src={iconbesilogam} alt="Besi & Logam" />
             <h3>Besi & Logam</h3>
             </Link>
           </div>
           <div className="jenis-sampah-card">
-            <Link to ="JenisElektronik">
+            <Link to ="/JenisElektronik">
             <img src={iconelektronik} alt="Elektronik" />
             <h3>Elektronik</h3>
             </Link>
           </div>
           <div className="jenis-sampah-card">
-            <Link to = "JenisBotolKaca">
+            <Link to = "/JenisBotolKaca">
             <img src={iconbotolkaca} alt="Botol Kaca" />
             <h3>Botol Kaca</h3>
             </Link>
           </div>
           <div className="jenis-sampah-card">
-            <Link to ="JenisMerek">
+            <Link to ="/JenisMerek">
             <img src={iconmerek} alt="Merek" />
             <h3>Merek</h3>
             </Link>
           </div>
           <div className="jenis-sampah-card">
-            <Link to = "JenisKhusus">
+            <Link to = "/JenisKhusus">
             <img src={iconkhusus} alt="Khusus" />
             <h3>Khusus</h3>
             </Link>
@@ -235,7 +238,7 @@ const LandingPage = () => {
             Ubah sampahmu menjadi manfaat dengan mendonasikannya sekarang! <br/> Setiap donasi sampah yang Anda berikan akan 
             membantu mendukung <br/> program daur ulang dan menjaga kelestarian lingkungan.
           </p>
-          <Link to="FormDonasiSampah">
+          <Link to="/FormDonasiSampah">
           <button className="donation-button">Daftar donasi</button>
           </Link>
         </div>

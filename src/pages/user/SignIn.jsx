@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { auth, db } from "../../config/firebaseConfig";
-import { getDoc, doc } from "firebase/firestore";
+import { signInWithEmailAndPassword } from "firebase/auth"; // Import Firebase Authentication
+import { auth } from "../../config/firebaseConfig";
+import { Link } from "react-router-dom"; 
+import { getDoc, doc } from "firebase/firestore"; // Import Firestore functions
+import { db } from "../../config/firebaseConfig"; // Assuming you have Firestore initialized
 import "./SignIn.css";
 
 export default function SignIn() {
@@ -23,27 +25,36 @@ export default function SignIn() {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Fetch user data from Firestore to check role
-      const userDoc = await getDoc(doc(db, "users", user.uid));
+      // Fetch user role from Firestore
+      const userDocRef = doc(db, "users", user.uid); // Assuming your user document is in the 'users' collection
+      const userDocSnap = await getDoc(userDocRef);
 
-      if (userDoc.exists() && userDoc.data().role === "user") {
-        alert(`Selamat datang kembali, ${user.email}!`);
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+        const userRole = userData.role; // Assuming 'role' field in Firestore
 
-        // Save session based on Remember Me option
+        if (userRole === 'admin') {
+          alert("Admins are not allowed to sign in to this platform.");
+          signOut(auth); // Optionally, sign out the admin user
+          setIsLoading(false);
+          return;
+        }
+
+        // If user is 'user' role, proceed
+        alert(`Welcome back, ${user.email}!`);
+
         const storage = rememberMe ? localStorage : sessionStorage;
         storage.setItem("user", JSON.stringify(user));
 
         setIsLoading(false);
         navigate("/landingpage");
       } else {
-        alert("Akun ini tidak memiliki akses sebagai user.");
+        alert("No role found for this user.");
         setIsLoading(false);
-        // Sign out user if role is not user
-        await signOut(auth);
       }
     } catch (error) {
       console.error("Login failed:", error);
-      alert(`Login gagal: ${error.message}`);
+      alert(`Login failed: ${error.message}`);
       setIsLoading(false);
     }
   };
@@ -105,8 +116,15 @@ export default function SignIn() {
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
               />
-              <label htmlFor="rememberMe">Remember Me</label>
+              <label htmlFor="rememberMe">Ingat saya</label>
             </div>
+            <button
+              type="button"
+              className="forgot-password"
+              onClick={handleForgotPassword}
+            >
+              Lupa Password
+            </button>
           </div>
 
           <button
@@ -117,8 +135,11 @@ export default function SignIn() {
             {isLoading ? "Processing..." : "Sign In"}
           </button>
 
-          <div className="forgot-password-link">
-            <a href="#!" onClick={handleForgotPassword}>Forgot Password?</a>
+          <div className="signup-link">
+            Belum punya akun?{" "}
+            <Link to="/signup" className="signup">
+              Sign Up
+            </Link>
           </div>
         </form>
       </div>
