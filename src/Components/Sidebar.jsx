@@ -18,6 +18,9 @@ const Sidebar = () => {
         <li className={`menuItem ${isActive("/dashboard")}`}>
           <Link to="/dashboard">Dashboard</Link>
         </li>
+        <li className={`menuItem ${isActive("/adminevents")}`}>
+          <Link to="/adminevents">Admin Events</Link>
+        </li>
         <li className={`menuItem ${isActive("/admintutorial")}`}>
           <Link to="/admintutorial">Tutorial</Link>
         </li>

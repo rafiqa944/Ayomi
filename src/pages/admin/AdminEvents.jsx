@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from "../../config/firebaseConfig";
 import './AdminEvents.css';
+import Sidebar from '../../Components/Sidebar';
 
 const AdminEvents = () => {
   const [events, setEvents] = useState([]);
@@ -86,6 +87,7 @@ const AdminEvents = () => {
 
   return (
     <div className="admin-events">
+      <Sidebar />
       <h1>Manage Events</h1>
 
       <div className="add-event-form">
