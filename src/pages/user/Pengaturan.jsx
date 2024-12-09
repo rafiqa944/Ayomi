@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../Components/Navbar'; // Import Navbar component
 import Footer from '../../Components/Footer'; // Import Footer component
+import back from '../../assets/foto/back.png';
 import { Link, useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
 import { auth, db } from '../../config/firebaseConfig';
 import { getDoc, doc } from 'firebase/firestore';
@@ -42,6 +43,15 @@ const UserProfile = () => {
   return (
     <>
       <Navbar /> {/* Add Navbar component */}
+      <div className="undo-container">
+        <button className="undo-button" onClick={() => window.history.back()}>
+        <img 
+            src={back}
+            alt="undo-icon" 
+            className="undo-icon" 
+        />
+        </button>
+        </div>
       <div className="profile-page">
         <h1 className="page-title">Pengaturan</h1>
         {userData ? (
