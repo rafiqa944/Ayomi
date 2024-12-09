@@ -12,8 +12,7 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
-
-        <img src={LogoP} alt="Logo" className='LogoP' />
+      <img src={LogoP} alt="Logo" className='LogoP' />
 
       <ul className="menu">
         <li className={`menuItem ${isActive("/dashboard")}`}>
