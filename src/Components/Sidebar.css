@@ -21,18 +21,18 @@
   object-fit: contain; /* Memastikan gambar tetap proporsional */
 }
 
-.menu {
+.sidebar .menu {
   list-style: none;
   padding: 0;
   margin-top: 20px; /* Memberikan jarak di atas menu */
 }
 
-.menuItem {
+.sidebar .menuItem {
   margin-bottom: 25px; /* Memberikan jarak antar item menu */
   margin-left: 15px;
 }
 
-.menuItem a {
+.sidebar .menuItem a {
   color: white;
   text-decoration: none;
   font-size: 18px;
@@ -42,17 +42,17 @@
   transition: background-color 0.3s ease; /* Efek transisi ketika hover */
 }
 
-.menuItem a:hover {
+.sidebar .menuItem a:hover {
   background-color: #738A6E; /* Memberikan warna latar belakang saat hover */
   text-decoration: none; /* Menghilangkan underline saat hover */
 }
 
-.menuItem a:active {
+.sidebar .menuItem a:active {
   background-color: #444; /* Memberikan warna latar belakang saat item ditekan */
 }
 
 /* Gaya untuk item menu yang aktif */
-.menuItem.active a {
+.sidebar .menuItem.active a {
   background-color: #2f5445; /* Warna latar belakang saat item aktif */
   font-weight: bold; /* Menebalkan teks item yang aktif */
 }

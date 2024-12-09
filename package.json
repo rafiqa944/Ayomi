@@ -16,6 +16,7 @@
     "@react-google-maps/api": "^2.20.3",
     "axios": "^1.7.8",
     "firebase": "^11.0.2",
+    "lucide-react": "^0.468.0",
     "material-react-table": "^3.0.1",
     "openai": "^4.73.1",
     "react": "^18.3.1",

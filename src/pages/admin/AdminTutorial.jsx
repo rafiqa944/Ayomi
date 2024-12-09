@@ -1,166 +1,197 @@
-// import React, { useState, useEffect } from "react";
-// import { db, storage } from "../../config/firebaseConfig"; // Import konfigurasi Firebase
-// import {
-//   collection,
-//   getDocs,
-//   addDoc,
-//   deleteDoc,
-//   doc,
-// } from "firebase/firestore";
-// import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-// import "./AdminTutorial.css"; // Import file CSS
+import React, { useState, useEffect } from 'react';
+import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { db } from "../../config/firebaseConfig";
+import './AdminTutorial.css'; 
+import Sidebar from '../../Components/Sidebar';
 
-// const AdminPage = () => {
-//   const [tutorials, setTutorials] = useState([]);
-//   const [form, setForm] = useState({
-//     title: "",
-//     type: "",
-//     description: "",
-//     image: null,
-//     videoLink: "",
-//   });
+const AdminTutorial = () => {
+  const [tutorials, setTutorials] = useState([]);
+  const [newTutorial, setNewTutorial] = useState({
+    nama: '',
+    deskripsi: '',
+    gambar: '',
+    bahan: '',
+    step: '',
+    linkvideotutorial: '',
+  });
+  const [editingTutorialId, setEditingTutorialId] = useState(null);
 
-//   const tutorialsCollectionRef = collection(db, "tutorials");
+  useEffect(() => {
+    const fetchTutorials = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'kerajinan'));
+        setTutorials(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      } catch (error) {
+        console.error("Error fetching tutorials: ", error);
+      }
+    };
+    fetchTutorials();
+  }, []);
 
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       const data = await getDocs(tutorialsCollectionRef);
-//       setTutorials(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-//     };
-//     fetchData();
-//   }, []);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewTutorial({ ...newTutorial, [name]: value });
+  };
 
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setForm({ ...form, [name]: value });
-//   };
+  const handleAddTutorial = async () => {
+    try {
+      const bahanArray = newTutorial.bahan.split('\n').filter(b => b.trim() !== ''); 
+      const stepArray = newTutorial.step.split('\n').filter(s => s.trim() !== ''); 
 
-//   const handleFileChange = (e) => {
-//     setForm({ ...form, image: e.target.files[0] });
-//   };
+      await addDoc(collection(db, 'kerajinan'), {
+        ...newTutorial,
+        bahan: bahanArray,
+        step: stepArray,
+      });
 
-//   const handleAddTutorial = async () => {
-//     if (form.image) {
-//       // Langkah 1: Unggah gambar ke Firebase Storage
-//       const imageRef = ref(storage, `images/${form.image.name}`);
-//       try {
-//         await uploadBytes(imageRef, form.image);
-//         const imageUrl = await getDownloadURL(imageRef); // Mendapatkan URL gambar yang telah diunggah
+      setNewTutorial({
+        nama: '',
+        deskripsi: '',
+        gambar: '',
+        bahan: '',
+        step: '',
+        linkvideotutorial: '',
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error("Error adding tutorial: ", error);
+    }
+  };
 
-//         // Langkah 2: Tambahkan detail tutorial ke Firestore
-//         await addDoc(tutorialsCollectionRef, {
-//           title: form.title,
-//           type: form.type,
-//           description: form.description,
-//           image: imageUrl,
-//           videoLink: form.videoLink,
-//         });
+  const handleDeleteTutorial = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'kerajinan', id));
+      setTutorials(tutorials.filter(tutorial => tutorial.id !== id));
+    } catch (error) {
+      console.error("Error deleting tutorial: ", error);
+    }
+  };
 
-//         // Reset form setelah tutorial ditambahkan
-//         setForm({ title: "", type: "", description: "", image: null, videoLink: "" });
+  const handleUpdateTutorial = async () => {
+    try {
+      if (editingTutorialId) {
+        const bahanArray = newTutorial.bahan.split('\n').filter(b => b.trim() !== '');
+        const stepArray = newTutorial.step.split('\n').filter(s => s.trim() !== '');
 
-//         // Opsional: Memuat ulang data tanpa me-refresh halaman
-//         const data = await getDocs(tutorialsCollectionRef);
-//         setTutorials(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-//       } catch (error) {
-//         console.error("Error menambahkan tutorial:", error);
-//         alert("Terjadi kesalahan saat menambahkan tutorial.");
-//       }
-//     } else {
-//       alert("Harap unggah gambar.");
-//     }
-//   };
+        await updateDoc(doc(db, 'kerajinan', editingTutorialId), {
+          ...newTutorial,
+          bahan: bahanArray,
+          step: stepArray,
+        });
 
-//   const handleDeleteTutorial = async (id) => {
-//     try {
-//       const tutorialDoc = doc(db, "tutorials", id);
-//       await deleteDoc(tutorialDoc);
-      
-//       // Opsional: Memuat ulang data setelah penghapusan
-//       const data = await getDocs(tutorialsCollectionRef);
-//       setTutorials(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-//     } catch (error) {
-//       console.error("Error menghapus tutorial:", error);
-//       alert("Terjadi kesalahan saat menghapus tutorial.");
-//     }
-//   };
+        setNewTutorial({
+          nama: '',
+          deskripsi: '',
+          gambar: '',
+          bahan: '',
+          step: '',
+          linkvideotutorial: '',
+        });
+        setEditingTutorialId(null);
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error updating tutorial: ", error);
+    }
+  };
 
-//   return (
-//     <div className="admin-container">
-//       <h1>Halaman Admin</h1>
+  const handleEditTutorial = (tutorial) => {
+    setNewTutorial({
+      nama: tutorial.nama,
+      deskripsi: tutorial.deskripsi,
+      gambar: tutorial.gambar,
+      bahan: tutorial.bahan.join('\n'),
+      step: tutorial.step.join('\n'),
+      linkvideotutorial: tutorial.linkvideotutorial,
+    });
+    setEditingTutorialId(tutorial.id);
+  };
 
-//       <div className="form-container">
-//         <h2>Tambahkan Tutorial Baru</h2>
-//         <input
-//           type="text"
-//           name="title"
-//           placeholder="Judul"
-//           value={form.title}
-//           onChange={handleInputChange}
-//         />
-//         <input
-//           type="text"
-//           name="type"
-//           placeholder="Tipe"
-//           value={form.type}
-//           onChange={handleInputChange}
-//         />
-//         <textarea
-//           name="description"
-//           placeholder="Deskripsi"
-//           value={form.description}
-//           onChange={handleInputChange}
-//         />
-//         <input type="file" onChange={handleFileChange} />
-//         <input
-//           type="text"
-//           name="videoLink"
-//           placeholder="Link Video"
-//           value={form.videoLink}
-//           onChange={handleInputChange}
-//         />
-//         <button onClick={handleAddTutorial}>Tambah Tutorial</button>
-//       </div>
+  return (
+    <div className="admin-tutorial">
+      <Sidebar />
+      <h1>Manage Tutorials</h1>
 
-//       <div className="table-container">
-//         <h2>Tutorials</h2>
-//         <table>
-//           <thead>
-//             <tr>
-//               <th>Judul</th>
-//               <th>Tipe</th>
-//               <th>Deskripsi</th>
-//               <th>Gambar</th>
-//               <th>Link Video</th>
-//               <th>Aksi</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {tutorials.map((tutorial) => (
-//               <tr key={tutorial.id}>
-//                 <td>{tutorial.title}</td>
-//                 <td>{tutorial.type}</td>
-//                 <td>{tutorial.description}</td>
-//                 <td>
-//                   <img src={tutorial.image} alt={tutorial.title} width="100" />
-//                 </td>
-//                 <td>
-//                   <a href={tutorial.videoLink} target="_blank" rel="noopener noreferrer">
-//                     Lihat Video
-//                   </a>
-//                 </td>
-//                 <td>
-//                   <button onClick={() => handleDeleteTutorial(tutorial.id)}>
-//                     Hapus
-//                   </button>
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-//     </div>
-//   );
-// };
+      <div className="add-tutorial-form">
+        <h2>{editingTutorialId ? 'Edit Tutorial' : 'Add New Tutorial'}</h2>
+        <input
+          type="text"
+          name="nama"
+          placeholder="Tutorial Name"
+          value={newTutorial.nama}
+          onChange={handleInputChange}
+        />
+        <textarea
+          name="deskripsi"
+          placeholder="Description"
+          value={newTutorial.deskripsi}
+          onChange={handleInputChange}
+        ></textarea>
+        <input
+          type="text"
+          name="gambar"
+          placeholder="Image URL"
+          value={newTutorial.gambar}
+          onChange={handleInputChange}
+        />
+        <textarea
+          name="bahan"
+          placeholder="Materials (one per line)"
+          value={newTutorial.bahan}
+          onChange={handleInputChange}
+        ></textarea>
+        <textarea
+          name="step"
+          placeholder="Steps (one per line)"
+          value={newTutorial.step}
+          onChange={handleInputChange}
+        ></textarea>
+        <input
+          type="text"
+          name="linkvideotutorial"
+          placeholder="Video Tutorial Link"
+          value={newTutorial.linkvideotutorial}
+          onChange={handleInputChange}
+        />
+        <button onClick={editingTutorialId ? handleUpdateTutorial : handleAddTutorial}>
+          {editingTutorialId ? 'Update Tutorial' : 'Add Tutorial'}
+        </button>
+      </div>
 
-// export default AdminPage;
+      <div className="tutorial-list">
+        <h2>Existing Tutorials</h2>
+        {tutorials.map((tutorial) => (
+          <div key={tutorial.id} className="tutorial-item">
+            <h3>{tutorial.nama}</h3>
+            <p>{tutorial.deskripsi}</p>
+            <p>Materials:</p>
+            <ul>
+              {tutorial.bahan.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+            <p>Steps:</p>
+            <ol>
+              {tutorial.step.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ol>
+            {tutorial.gambar && <img src={tutorial.gambar} alt={tutorial.nama} />}
+            <p>
+              Video Tutorial:{" "}
+              <a href={tutorial.linkvideotutorial} target="_blank" rel="noopener noreferrer">
+                Watch here
+              </a>
+            </p>
+            <div className="tutorial-actions">
+              <button onClick={() => handleDeleteTutorial(tutorial.id)}>Delete</button>
+              <button onClick={() => handleEditTutorial(tutorial)}>Edit</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default AdminTutorial;

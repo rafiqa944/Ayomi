@@ -12,12 +12,14 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
-
-        <img src={LogoP} alt="Logo" className='LogoP' />
+      <img src={LogoP} alt="Logo" className='LogoP' />
 
       <ul className="menu">
         <li className={`menuItem ${isActive("/dashboard")}`}>
           <Link to="/dashboard">Dashboard</Link>
+        </li>
+        <li className={`menuItem ${isActive("/adminevents")}`}>
+          <Link to="/adminevents">Admin Events</Link>
         </li>
         <li className={`menuItem ${isActive("/admintutorial")}`}>
           <Link to="/admintutorial">Tutorial</Link>

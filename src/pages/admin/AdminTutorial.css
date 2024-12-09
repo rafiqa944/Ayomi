@@ -1,85 +1,103 @@
-/* AdminPage.css
-.admin-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: auto;
-  }
-  
-  h1, h2 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .form-container {
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  .form-container input, .form-container textarea {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .form-container button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .form-container button:hover {
-    background-color: #218838;
-  }
-  
-  .table-container {
-    margin-top: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
-  table th, table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  table th {
-    background-color: #f4f4f4;
-    color: #333;
-  }
-  
-  table img {
-    max-width: 100px;
-    border-radius: 5px;
-  }
-  
-  button {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  button:hover {
-    background-color: #c82333;
-  }
-   */
+.admin-tutorial {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.admin-tutorial h1 {
+  text-align: center;
+  color: #333;
+}
+
+.admin-tutorial .add-tutorial-form, 
+.admin-tutorial .tutorial-list {
+  margin: 20px auto;
+  max-width: 800px; /* Memperlebar area form */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.admin-tutorial .add-tutorial-form h2, 
+.admin-tutorial .tutorial-list h2 {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.admin-tutorial input, 
+.admin-tutorial textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.admin-tutorial button {
+  padding: 10px 15px;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #5cb85c; /* Warna tombol hijau */
+}
+
+.admin-tutorial button:hover {
+  background-color: #4cae4c;
+}
+
+.admin-tutorial .tutorial-list {
+  margin-top: 30px;
+}
+
+.admin-tutorial .tutorial-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.admin-tutorial .tutorial-item h3 {
+  margin-top: 0;
+}
+
+.admin-tutorial .tutorial-actions {
+  margin-top: 10px;
+}
+
+.admin-tutorial .tutorial-actions button {
+  margin-right: 10px;
+}
+
+.admin-tutorial img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+.admin-tutorial textarea {
+  resize: vertical; /* Mengizinkan perubahan tinggi textarea */
+}
+
+.admin-tutorial ul, 
+.admin-tutorial ol {
+  margin: 10px 0 20px 20px;
+}
+
+.admin-tutorial ul li, 
+.admin-tutorial ol li {
+  margin-bottom: 8px;
+}
+
+.admin-tutorial a {
+  color: #738A6E;
+  text-decoration: none;
+}
+
+.admin-tutorial a:hover {
+  text-decoration: underline;
+}

@@ -1,79 +1,100 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import './Tutorialkerajinansampah.css'; 
 import Navbar from '../../Components/Navbar';
 import Footer from '../../Components/Footer';
-import pot from '../../assets/foto/pot.png';
-import back from '../../assets/foto/back.png';
+import { doc, getDoc } from "firebase/firestore"; 
+import { db } from '../../config/firebaseConfig';  // Impor konfigurasi Firebase
+import back from '../../assets/foto/back.png';  // Ikon tombol kembali
 
 const Tutorialkerajinansampah = () => {
+    const [kerajinanData, setKerajinanData] = useState(null);  // State untuk menyimpan data tutorial
+    const [loading, setLoading] = useState(true);  // State untuk menangani loading
+    const [error, setError] = useState(null);  // State untuk menangani error
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Ambil data dari Firestore menggunakan path yang sudah ditentukan
+                const docRef = doc(db, "kerajinan", "ZgCmEYrfz6eUK3F5KCzh");
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    // Simpan data yang diperoleh ke state
+                    setKerajinanData({
+                        title: data.nama,
+                        description: data.deskripsi,
+                        image: data.gambar,
+                        videoLink: data.linkvideotutorial,
+                        materials: data.bahan,
+                        steps: data.step,
+                    });
+                } else {
+                    console.error("Dokumen tidak ditemukan!");
+                }
+            } catch (err) {
+                setError("Error mengambil data: " + err.message);
+            } finally {
+                setLoading(false);  // Set loading ke false setelah data selesai di-fetch
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    // Jika data masih loading
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    // Jika terjadi error
+    if (error) {
+        return <p>{error}</p>;
+    }
+
+    // Menampilkan data jika berhasil diambil
     return (
         <div>
-        <Navbar />
-        <div className="back-container">
-          <button className="back-button" onClick={() => window.history.back()}>
-          <img 
-              src={back}
-              alt="back-icon" 
-              className="back-icon" 
-          />
-          </button>
-        </div>
-        <div className="text" >
-        <h2>
-            Pot tanaman dari galon
-        </h2>
-        <p>
-            Pot tanaman dari galon bekas merupakan cara kreatif 
-            untuk mendaur ulang sampah plastik sekaligus memberikan tempat 
-            tumbuh yang ramah lingkungan bagi tanaman. Dengan memotong, menghias, 
-            dan mengisi botol dengan tanah, kita dapat menciptakan pot yang unik 
-            dan menarik, serta berkontribusi pada pengurangan limbah plastik di 
-            lingkungan sekitar kita.
-        </p>
-        </div>
-        <div className="foto-pot">
-            <img src={ pot } alt="tutorial pot" className="foto-pot"/>
-        </div>
-        <div>
-            <p className="Bahan">Bahan-bahan yang diperlukan:</p>
-            <ol className="list-bahan">
-                <li>Galon bekas Le Minerale yang sudah bersih dan dikeringkan.</li>
-                <li>Gunting atau pisau tajam.</li>
-                <li>Cat atau spidol permanen (opsional).</li>
-                <li>Potongan kain atau anyaman sebagai penutup dasar (opsional).</li>
-                <li>Tanaman yang ingin ditanam.</li>
-            </ol>
-        </div>
-        <div>
-            <p className="langkah">Langkah-langkahnya:</p>
-            <ol className="urutan-langkah ">
-                <li>Bersihkan galon bekas Le Minerale dengan air bersih 
-                    dan pastikan sudah kering sepenuhnya. </li>
-                <li>Jika Anda ingin memberikan sentuhan personal pada pot, 
-                    Anda bisa mewarnai atau menghias galon dengan cat atau spidol permanen. 
-                    Biarkan cat atau spidol permanen mengering dengan baik sebelum melanjutkan ke 
-                    langkah berikutnya.</li>
-                <li>Untuk mempermudah proses pemotongan, tandai garis-garis yang akan dipotong pada 
-                    galon menggunakan spidol atau pensil.</li>
-                <li>Gunakan gunting atau pisau tajam untuk memotong galon sesuai dengan garis yang sudah 
-                    ditandai. Anda bisa memotong di bagian atas atau di bagian bawah galon, tergantung pada 
-                    ukuran pot yang diinginkan. </li>
-                <li>Jika Anda ingin menggunakan penutup dasar, ukur dan potong potongan kain atau anyaman dengan 
-                    ukuran yang sesuai dengan bagian bawah galon. Tempatkan penutup dasar ini di bagian bawah galon.</li>
-                <li>Setelah potongan galon siap, Anda dapat mengisi pot dengan tanah yang subur dan menanam tanaman 
-                    yang diinginkan. </li>
-                <li>Pastikan untuk menyiram tanaman secara teratur dan menjaga kelembaban tanah yang sesuai dengan kebutuhan 
-                    tanaman yang anda tanam di dalam pot.</li>
-            </ol>
-            <div className="link">
-            <h2>Link video turorial:</h2>
-            <a href="https://www.youtube.com/watch?v=Z4Yl273lqXQ" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=Z4Yl273lqXQ</a>
+            <Navbar />
+            <div className="back-container">
+                <button className="back-button" onClick={() => window.history.back()}>
+                    <img 
+                        src={back}
+                        alt="back-icon" 
+                        className="back-icon" 
+                    />
+                </button>
             </div>
+            <div className="text">
+                <h2>{kerajinanData.title}</h2>
+                <p>{kerajinanData.description}</p>
+            </div>
+            <div className="foto-pot">
+                <img src={kerajinanData.image} alt="tutorial pot" className="foto-pot" />
+            </div>
+            <div>
+                <p className="Bahan">Bahan-bahan yang diperlukan:</p>
+                <ol className="list-bahan">
+                    {kerajinanData.materials && kerajinanData.materials.map((material, index) => (
+                        <li key={index}>{material}</li>
+                    ))}
+                </ol>
+            </div>
+            <div>
+                <p className="langkah">Langkah-langkahnya:</p>
+                <ol className="urutan-langkah">
+                    {kerajinanData.steps && kerajinanData.steps.map((step, index) => (
+                        <li key={index}>{step}</li>
+                    ))}
+                </ol>
+                <div className="link">
+                    <h2>Link video tutorial:</h2>
+                    <a href={kerajinanData.videoLink} target="_blank" rel="noopener noreferrer">{kerajinanData.videoLink}</a>
+                </div>
+            </div>
+            <Footer />
         </div>
-    <Footer/>
-    </div>
-  )
+    );
 };
 
 export default Tutorialkerajinansampah;
-
