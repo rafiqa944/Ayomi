@@ -1,0 +1,57 @@
+.ringkasan-sampah-title {
+    font-size: 2rem; /* Membuat lebih besar */
+    font-weight: bold !important; /* Membuat tulisan tebal */
+    text-align: left; /* Membuat teks rata kiri */
+    margin-left: 420px; /* Memberikan jarak ke kiri */
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: #344C3D;
+  }
+  
+  .ringkasan-sampah-container {
+    display: flex;
+    background-color: #f4f4f9;
+    min-height: 100vh;
+    color: #333; /* Default teks */
+  }
+  
+  .ringkasan-sampah-content {
+    margin-left: 250px;
+    padding: 50px;
+    width: calc(100% - 250px);
+  }
+  
+  .ringkasan-sampah-table {
+    width: 400%; /* Mengatur ukuran tabel lebih kecil */
+    max-width: 1200px; /* Batas maksimal lebar tabel */
+    margin: 0 auto; /* Membuat tabel berada di tengah */
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center; /* Tulisan di tengah horizontal */
+  }
+  
+  .ringkasan-sampah-table thead th {
+    background-color: #344C3D !important; /* Warna latar belakang */
+    color: #fff;
+    padding: 16px;
+    text-align: center; /* Tulisan tengah horizontal */
+    font-size: 16px;
+  }
+  
+  .ringkasan-sampah-table tbody td {
+    padding: 16px;
+    font-size: 14px;
+    color: #2c3e50;
+    border-bottom: 1px solid #ddd;
+    text-align: center; /* Tulisan tengah horizontal */
+    vertical-align: middle; /* Tulisan tengah vertikal */
+  }
+  
+  .ringkasan-sampah-table tbody tr:hover {
+    background-color: #E6EAE5; /* Efek hover */
+  }
+  

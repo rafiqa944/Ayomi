@@ -28,7 +28,7 @@ const UserProfile = () => {
           console.error('Error fetching user data:', error);
         }
       } else {
-        navigate('/auth/sign-in'); // Arahkan ke halaman login jika user belum login
+        navigate('/signin'); // Arahkan ke halaman login jika user belum login
       }
       setIsLoading(false);
     };

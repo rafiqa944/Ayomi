@@ -44,26 +44,24 @@ const Summary = () => {
   }, []);
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className="ringkasan-sampah-container">
       <Sidebar />
-      <div style={{ marginLeft: "250px", padding: "20px", width: "calc(100% - 250px)" }}>
-        <h2>Ringkasan Total Keseluruhan Sampah</h2>
-        <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "20px" }}>
+      <div className="ringkasan-sampah-content">
+        <h2 className="ringkasan-sampah-title">
+            Ringkasan Total Keseluruhan Sampah
+        </h2>
+        <table className="ringkasan-sampah-table">
           <thead>
             <tr>
-              <th style={{ textAlign: "left", padding: "8px", borderBottom: "1px solid #ccc" }}>
-                Jenis Sampah
-              </th>
-              <th style={{ textAlign: "left", padding: "8px", borderBottom: "1px solid #ccc" }}>
-                Total Berat (kg)
-              </th>
+              <th>Jenis Sampah</th>
+              <th>Total Berat (kg)</th>
             </tr>
           </thead>
           <tbody>
             {summaryData.map((item, index) => (
               <tr key={index}>
-                <td style={{ padding: "8px", borderBottom: "1px solid #ccc" }}>{item.type}</td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #ccc" }}>{item.weight} kg</td>
+                <td>{item.type}</td>
+                <td>{item.weight} kg</td>
               </tr>
             ))}
           </tbody>
