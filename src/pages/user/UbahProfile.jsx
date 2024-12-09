@@ -15,7 +15,6 @@ const UserProfile = () => {
     phone: "",
     email: "",
     gender: "",
-    birthDate: "",
     address: "",
   });
   const [loading, setLoading] = useState(true);
@@ -147,15 +146,7 @@ const UserProfile = () => {
                 <option value="Other">Lainnya</option>
               </select>
             </div>
-            <div className="form-group">
-              <label htmlFor="birthDate">Tanggal Lahir:</label>
-              <input
-                type="date"
-                id="birthDate"
-                value={userData.birthDate}
-                onChange={handleChange}
-              />
-            </div>
+
             <div className="form-group">
               <label htmlFor="address">Alamat:</label>
               <textarea
