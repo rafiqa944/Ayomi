@@ -3,7 +3,7 @@
 
 .profile-page {
   text-align: center;
-  padding: 20px;
+  padding: 70px;
   background-color: #f8f8f8;
   min-height: 100vh;
 }
@@ -22,7 +22,7 @@
   margin: 0 auto;
   max-width: 500px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 250px;
+  margin-top: 50px;
 }
 
 .profile-avatar {
@@ -78,4 +78,9 @@
   color: #6b7a66;
 }
 
+.undo-container {
+  margin-top: 50px; /* Pastikan margin-top tidak negatif */
+  padding: 20px 0;
+  text-align: center; /* Untuk memastikan konten terpusat */
+}
 

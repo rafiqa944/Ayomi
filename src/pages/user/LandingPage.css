@@ -21,7 +21,7 @@
     font-size: 32px; /* Mengatur ukuran font judul */
     font-weight: bold; /* Membuat teks menjadi tebal */
     color: #344C3D; /* Mengatur warna font menjadi #344C3D */
-    margin-top: -10px;
+    margin-top: -90px;
     
 }
 .gallery h3 {
@@ -296,7 +296,7 @@
 
 .teks-layanankami{
   color: #344C3D;
-  margin-top: 50px;
+  margin-top: -20px;
   font-size: 35px;
 }
 
@@ -402,7 +402,7 @@
 .jenis-sampah-section h1 {
   font-size: 35px;
   color: #2d4c2c;
-  margin-top: 5px;
+  margin-top: -45px;
 }
 .donation-section {
   display: flex;
