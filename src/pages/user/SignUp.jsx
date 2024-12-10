@@ -145,11 +145,11 @@ export default function SignUp() {
           <div className="signin-link">
             Sudah punya akun?{" "}
             <a
-              href="/auth/sign-in"
+              href="/signin"
               className="signin"
               onClick={(e) => {
                 e.preventDefault();
-                navigate("/auth/sign-in");
+                navigate("/signin");
               }}
             >
               Sign In
