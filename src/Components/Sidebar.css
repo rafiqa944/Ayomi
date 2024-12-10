@@ -27,7 +27,7 @@
 
 .sidebar .menuItem {
   margin-bottom: 25px; /* Memberikan jarak antar item menu */
-  margin-left: 15px;
+  margin-left: 0;
 }
 
 .sidebar .menuItem a {
@@ -53,4 +53,31 @@
 .sidebar .menuItem.active a {
   background-color: #2f5445; /* Warna latar belakang saat item aktif */
   font-weight: bold; /* Menebalkan teks item yang aktif */
+}
+
+.sidebar .logout-btn {
+  display: block; /* Agar tombol mengisi seluruh baris */
+  width: 100%; /* Memastikan panjangnya sama dengan container */
+  color: white;
+  background-color: transparent; /* Transparan seperti link */
+  border: none; /* Menghilangkan border default */
+  font-size: 18px;
+  padding: 10px; /* Konsisten dengan link */
+  text-align: left; /* Menyelaraskan teks ke kiri */
+  border-radius: 5px; /* Sama seperti elemen link */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar .logout-btn:hover {
+  background-color: #738A6E; /* Warna latar belakang saat hover */
+}
+
+.sidebar .logout-btn:active {
+  background-color: #444; /* Warna saat tombol ditekan */
+}
+
+.sidebar .menuItem a,
+.sidebar .logout-btn {
+  width: 100%; /* Semua elemen mengisi lebar container */
 }

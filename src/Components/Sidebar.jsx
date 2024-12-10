@@ -1,13 +1,22 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom"; // Menggunakan useLocation dari React Router
+import { Link, useLocation, useNavigate } from "react-router-dom"; // Tambahkan useNavigate
 import './Sidebar.css'; // Mengimpor file CSS
 import LogoP from '../assets/foto/LogoP.png';
 
 const Sidebar = () => {
   const location = useLocation(); // Mendapatkan lokasi saat ini
+  const navigate = useNavigate(); // Untuk navigasi
 
   // Fungsi untuk memeriksa apakah link aktif
   const isActive = (path) => location.pathname === path ? "active" : "";
+
+  // Fungsi untuk menangani logout
+  const handleLogout = () => {
+    const confirmLogout = window.confirm("Are you sure you want to log out?");
+    if (confirmLogout) {
+      navigate("/signin2"); // Navigasi ke halaman Sign In jika konfirmasi logout
+    }
+  };
 
   return (
     <div className="sidebar">
@@ -32,8 +41,8 @@ const Sidebar = () => {
         <li className={`menuItem ${isActive("/dataevent")}`}>
           <Link to="/registrationlist">Event</Link>
         </li>
-        <li className={`menuItem ${isActive("/logout")}`}>
-          <Link to="/signin2">Logout</Link>
+        <li className={`menuItem`}>
+          <button onClick={handleLogout} className="logout-btn">Logout</button>
         </li>
       </ul>
     </div>
