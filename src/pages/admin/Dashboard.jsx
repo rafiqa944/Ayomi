@@ -3,15 +3,40 @@ import { db } from "../../config/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import Sidebar from "../../Components/Sidebar";
 import { useNavigate } from "react-router-dom";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"; // Import komponen untuk grafik batang
-import { getAuth } from "firebase/auth"; // Import Firebase Auth
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { getAuth } from "firebase/auth";
 import "./Dashboard.css";
 
-const DashboardAdmin = () => {
+const Dashboard = () => {
   const [totalWeight, setTotalWeight] = useState(0);
   const [donationData, setDonationData] = useState([]);
-  const [userEmail, setUserEmail] = useState(""); // State untuk menyimpan email pengguna
+  const [tutorialCount, setTutorialCount] = useState(0); // State untuk menyimpan jumlah tutorial (sampah yang didaur ulang)
+  const [userEmail, setUserEmail] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+
+    // Jika user tidak login atau bukan admin, arahkan ke halaman login
+    const checkAdminStatus = async () => {
+      if (!currentUser) {
+        navigate("/signin2"); // Arahkan ke halaman login jika belum login
+        return;
+      }
+
+      const userDoc = await getDocs(collection(db, "users"));
+      const userRef = userDoc.docs.find(doc => doc.data().email === currentUser.email);
+      
+      if (!userRef || userRef.data().role !== "admin") {
+        navigate("/signin2"); // Arahkan ke halaman login jika bukan admin
+      } else {
+        setUserEmail(currentUser.email);
+      }
+    };
+
+    checkAdminStatus(); // Cek status login dan role admin
+  }, [navigate]);
 
   useEffect(() => {
     const fetchTotalWeight = async () => {
@@ -22,10 +47,8 @@ const DashboardAdmin = () => {
           ...doc.data(),
         }));
 
-        // Set donations data
         setDonationData(donationsData);
 
-        // Calculate the total weight of all donations
         const total = donationsData.reduce(
           (sum, donation) => sum + parseFloat(donation.weight || 0),
           0
@@ -36,17 +59,21 @@ const DashboardAdmin = () => {
       }
     };
 
-    // Get the current logged-in user's email
-    const auth = getAuth();
-    const currentUser = auth.currentUser;
-    if (currentUser) {
-      setUserEmail(currentUser.email); // Set email if user is logged in
-    }
+    // Mengambil jumlah tutorial dari koleksi 'kerajinan'
+    const fetchTutorialCount = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "kerajinan"));
+        setTutorialCount(querySnapshot.size); // Set jumlah tutorial (kerajinan)
+      } catch (error) {
+        console.error("Error fetching tutorials:", error);
+      }
+    };
 
     fetchTotalWeight();
+    fetchTutorialCount(); // Panggil fungsi untuk mengambil jumlah tutorial
   }, []);
 
-  // Group the donations by waste type and calculate the total weight per type
+  // Group donations by waste type
   const groupedData = donationData.reduce((acc, donation) => {
     const { wasteType, weight } = donation;
     if (wasteType) {
@@ -58,15 +85,13 @@ const DashboardAdmin = () => {
     return acc;
   }, {});
 
-  // Convert grouped data into an array for the chart
   const chartData = Object.entries(groupedData).map(([type, weight]) => ({
     name: type,
     value: weight,
   }));
 
-  // Navigate to summary page when the box is clicked
   const handleBoxClick = () => {
-    navigate("/ringkasansampah"); // Redirect to the Summary page
+    navigate("/ringkasansampah");
   };
 
   return (
@@ -74,31 +99,40 @@ const DashboardAdmin = () => {
       <Sidebar />
       <div className="dashboard-content">
         <h4 className="dashboard-title">
-          Welcome Back, {userEmail ? `${userEmail}!👋🏻` : "Admin"} {/* Menambahkan emotikon dan menghapus tanda kurung */}
+          Welcome Back, {userEmail ? `${userEmail}!👋🏻` : "Admin"}
         </h4>
-
-        {/* Paper Box */}
+  
+        {/* Kotak Total Sampah yang Dikumpulkan */}
         <div className="paper-container">
           <div
             className="paper-box"
             onClick={handleBoxClick}
             style={{ cursor: "pointer" }}
           >
-            <h6 className="paper-title">Total Sampah Yang Berhasil Dikumpulkan:</h6>
+            <h6 className="paper-title">Total Sampah yang Berhasil Dikumpulkan:</h6>
             <h4 className="paper-weight">{totalWeight} kg</h4>
           </div>
+  
+          {/* Kotak Jumlah Sampah yang Daur Ulang */}
+          <div
+            className="paper-box"
+            style={{ cursor: "pointer" }}
+          >
+            <h6 className="paper-title">Total Kerajinan dari Sampah yang Telah Daur Ulang:</h6>
+            <h4 className="paper-weight">{tutorialCount} Kerajinan</h4> {/* Menampilkan jumlah tutorial */}
+          </div>
         </div>
-
+  
         {/* Grafik Sampah per Jenis */}
         <h4 style={{ marginTop: "40px" }}>Grafik Sampah per Jenis</h4>
-        <ResponsiveContainer width="30%" height={250}> {/* Mengurangi lebar dan tinggi */}
+        <ResponsiveContainer width="50%" height={250}>
           <BarChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="value" fill="#B8C4B6" barSize={25} /> {/* Lebar batang lebih kecil */}
+            <Bar dataKey="value" fill="#B8C4B6" barSize={25} />
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -106,4 +140,4 @@ const DashboardAdmin = () => {
   );
 };
 
-export default DashboardAdmin;
+export default Dashboard;

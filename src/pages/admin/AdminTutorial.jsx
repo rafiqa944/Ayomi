@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from "../../config/firebaseConfig";
+import { getAuth } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 import './AdminTutorial.css'; 
 import Sidebar from '../../Components/Sidebar';
 
@@ -15,6 +17,30 @@ const AdminTutorial = () => {
     linkvideotutorial: '',
   });
   const [editingTutorialId, setEditingTutorialId] = useState(null);
+  const navigate = useNavigate();
+  const auth = getAuth();
+
+  // Check if the user is logged in and is an admin
+  useEffect(() => {
+    const checkAdmin = async () => {
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        // If user is not logged in, redirect to sign-in page
+        navigate("/signin2");
+        return;
+      }
+
+      const userDoc = await getDocs(collection(db, 'users'));
+      const userRef = userDoc.docs.find(doc => doc.data().email === currentUser.email);
+      
+      if (!userRef || userRef.data().role !== "admin") {
+        // If user is not admin, redirect to sign-in page
+        navigate("/signin2");
+      }
+    };
+
+    checkAdmin();
+  }, [auth, navigate]);
 
   useEffect(() => {
     const fetchTutorials = async () => {

@@ -70,12 +70,6 @@ const Navbar = () => {
           <li><Link to="/pengaturan" className={isActive('/pengaturan')}>Profile</Link></li>
         )}
 
-        {/* <li>
-          <Link to="FormDonasiSampah">
-            <button className="btn">Donasi</button>
-          </Link>
-        </li> */}
-
         {user && (
           // Tombol untuk logout jika sudah login
           <li>

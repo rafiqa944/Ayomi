@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from "../../config/firebaseConfig";
+import { getAuth } from 'firebase/auth';
 import './AdminEvents.css';
 import Sidebar from '../../Components/Sidebar';
+import { useNavigate } from 'react-router-dom';
 
 const AdminEvents = () => {
   const [events, setEvents] = useState([]);
@@ -14,19 +16,46 @@ const AdminEvents = () => {
     waktu_selesai: '',
     gambar: '',
   });
-  const [editingEventId, setEditingEventId] = useState(null); // Untuk menyimpan ID event yang sedang diedit
+  const [editingEventId, setEditingEventId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [userRole, setUserRole] = useState(null); // To store user role
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'events'));
-        setEvents(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-      } catch (error) {
-        console.error("Error fetching events: ", error);
+    const checkAuth = async () => {
+      const auth = getAuth();
+      const currentUser = auth.currentUser;
+
+      if (!currentUser) {
+        navigate("/signin2"); // Redirect to signin if user is not logged in
+        return;
       }
+
+      const userDoc = await getDocs(collection(db, "users"));
+      const userRef = userDoc.docs.find(doc => doc.data().email === currentUser.email);
+
+      if (!userRef || userRef.data().role !== "admin") {
+        navigate("/signin2"); // Redirect to signin if user is not an admin
+        return;
+      }
+
+      setUserRole(userRef.data().role); // Set the role to check the admin's status
+      fetchEvents(); // Proceed to fetch events if the user is an admin
     };
-    fetchEvents();
-  }, []);
+
+    checkAuth(); // Check if user is authenticated and is an admin
+  }, [navigate]);
+
+  const fetchEvents = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'events'));
+      setEvents(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    } catch (error) {
+      console.error("Error fetching events: ", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -84,6 +113,10 @@ const AdminEvents = () => {
     });
     setEditingEventId(event.id); // Set the event ID for editing
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>; // Show a loading message while checking authentication and fetching data
+  }
 
   return (
     <div className="admin-events">
