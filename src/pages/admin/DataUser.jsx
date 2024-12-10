@@ -1,9 +1,9 @@
-// src/pages/DataUser.jsx
 import React, { useState, useEffect, useMemo } from "react";
 import { MaterialReactTable } from "material-react-table";
 import { collection, getDocs, doc, setDoc, deleteDoc } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { auth, db } from "../../config/firebaseConfig";
+import { useNavigate } from "react-router-dom";
 import { Box, IconButton, Tooltip, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Sidebar from "../../Components/Sidebar";
@@ -12,6 +12,28 @@ const DataUser = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, userId: null });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const user = getAuth().currentUser;
+
+      // Redirect to signin if not logged in or if not an admin
+      if (!user) {
+        navigate("/signin2");
+        return;
+      }
+
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDocs(userDocRef);
+      
+      if (userDoc.exists() && userDoc.data().role !== "admin") {
+        navigate("/signin2"); // Redirect if not admin
+      }
+    };
+
+    checkAuth(); // Check auth status on page load
+  }, [navigate]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -31,30 +53,6 @@ const DataUser = () => {
     };
 
     fetchUsers();
-  }, []);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const userDocRef = doc(db, "users", user.uid);
-        const userDoc = await getDocs(userDocRef);
-
-        if (!userDoc.exists()) {
-          const newUser = {
-            username: user.displayName || "Anonymous",
-            email: user.email,
-            phone: user.phoneNumber || "N/A",
-            address: "Alamat belum diatur",
-            fullName: user.displayName || "Nama belum diatur",
-          };
-
-          await setDoc(userDocRef, newUser);
-          setUsers((prevUsers) => [...prevUsers, { id: user.uid, ...newUser }]);
-        }
-      }
-    });
-
-    return () => unsubscribe();
   }, []);
 
   const handleDelete = async (userId) => {

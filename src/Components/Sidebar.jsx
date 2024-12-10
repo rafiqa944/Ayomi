@@ -1,4 +1,3 @@
-// src/components/Sidebar.jsx
 import React from "react";
 import { Link, useLocation } from "react-router-dom"; // Menggunakan useLocation dari React Router
 import './Sidebar.css'; // Mengimpor file CSS

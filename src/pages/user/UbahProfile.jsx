@@ -9,7 +9,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore"; // Firestore operat
 import { updateEmail } from "firebase/auth"; // Firebase Authentication
 import './UbahProfile.css';
 
-const UserProfile = () => {
+const UbahProfile = () => {
   const [userData, setUserData] = useState({
     fullName: "",
     phone: "",
@@ -174,4 +174,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default UbahProfile;

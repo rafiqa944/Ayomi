@@ -3,7 +3,7 @@ import Navbar from "../../Components/Navbar"; // Sesuaikan path file Navbar
 import Footer from "../../Components/Footer"; // Sesuaikan path file Footer
 import "./FormPembuatanKegiatan.css";
 
-const ActivityForm = () => {
+const FormPembuatanKegiatan = () => {
   const [formData, setFormData] = useState({
     activityName: "",
     description: "",
@@ -137,4 +137,4 @@ const ActivityForm = () => {
   );
 };
 
-export default ActivityForm;
+export default FormPembuatanKegiatan;

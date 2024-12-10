@@ -33,11 +33,7 @@ import DonationList from "./pages/admin/DonationList.jsx";
 import AdminEvents from "./pages/admin/AdminEvents.jsx";
 import EventsList from "./pages/admin/RegistrationList.jsx";
 import AdminTutorial from "./pages/admin/AdminTutorial.jsx";
-// import AdminTutorial from "./pages/admin/AdminTutorial.jsx";
-
 import RingkasanSampah from "./pages/admin/RingkasanSampah.jsx";
-import DonasiUser from "./pages/user/DonasiUser.jsx";
-
 
 const router = createBrowserRouter([
   {
@@ -165,8 +161,8 @@ const router = createBrowserRouter([
     element: < AdminTutorial />,
   },
   {
-    path: "/donasiuser",
-    element: < DonasiUser />,
+    path: "/ringkasansampah",
+    element: < RingkasanSampah />,
   },
 ]);
 

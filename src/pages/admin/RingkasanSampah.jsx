@@ -1,13 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../config/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import { getAuth } from "firebase/auth"; // Import getAuth to get the current user
 import Sidebar from "../../Components/Sidebar";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for redirect
 import "./RingkasanSampah.css"; // Import CSS file
 
-const Summary = () => {
+const RingkasanSampah = () => {
   const [summaryData, setSummaryData] = useState([]);
+  const navigate = useNavigate(); // Initialize navigate for redirection
 
   useEffect(() => {
+    const auth = getAuth();
+    const currentUser = auth.currentUser; // Get the current authenticated user
+
+    // Check if the user is logged in and if the user is an admin
+    const checkAdminStatus = async () => {
+      if (!currentUser) {
+        navigate("/signin2"); // Redirect to login page if the user is not logged in
+        return;
+      }
+
+      // Check the user's role in Firestore
+      const userDoc = await getDocs(collection(db, "users"));
+      const userRef = userDoc.docs.find(doc => doc.data().email === currentUser.email);
+
+      if (!userRef || userRef.data().role !== "admin") {
+        navigate("/signin2"); // Redirect to login page if the user is not an admin
+      }
+    };
+
+    checkAdminStatus(); // Call function to check if the user is logged in and is an admin
+
+    // Fetch and process donation data if the user is an admin
     const fetchSummaryData = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "donations"));
@@ -41,7 +66,7 @@ const Summary = () => {
     };
 
     fetchSummaryData();
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="ringkasan-sampah-container">
@@ -71,4 +96,4 @@ const Summary = () => {
   );
 };
 
-export default Summary;
+export default RingkasanSampah;

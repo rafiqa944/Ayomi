@@ -7,7 +7,7 @@ import { auth, db } from '../../config/firebaseConfig';
 import { getDoc, doc } from 'firebase/firestore';
 import './Pengaturan.css';
 
-const UserProfile = () => {
+const Pengaturan = () => {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -80,12 +80,12 @@ const UserProfile = () => {
             </button>
           </Link>
 
-          <Link to="/donasi" className="profile-link">
+          {/* <Link to="/donasiuser" className="profile-link">
             <button className="profile-button">
               Donasimu
               <span className="arrow">&gt;</span>
             </button>
-          </Link>
+          </Link> */}
 
           <Link to="/signin" className="profile-link">
             <button className="profile-button">
@@ -100,4 +100,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default Pengaturan;
