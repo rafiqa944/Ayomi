@@ -1,32 +1,36 @@
-// export default Navbar;
-
 import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import LogoP from '../assets/foto/LogoP.png';
-import { Link } from 'react-router-dom';
-import { getAuth, onAuthStateChanged } from 'firebase/auth'; // Firebase Authentication
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const Navbar = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  // Cek status login menggunakan Firebase Authentication
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser); // Menyimpan user jika login
+      setUser(currentUser); // Update user state when authentication state changes
     });
 
-    return () => unsubscribe(); // Cleanup on unmount
+    return () => unsubscribe(); // Cleanup listener on unmount
   }, []);
 
   const handleSignOut = () => {
     const auth = getAuth();
-    auth.signOut();
+    auth.signOut()
+      .then(() => {
+        navigate('/landingpage'); // Redirect to Landing Page after sign out
+      })
+      .catch((error) => {
+        console.error('Error during sign out:', error);
+      });
   };
 
   const isActive = (path) => location.pathname.startsWith(path) ? 'active' : '';
@@ -37,7 +41,6 @@ const Navbar = () => {
         <img src={LogoP} alt="Logo" className="LogoP" />
       </Link>
       <ul>
-
         <li className="dropdown">
           <button
             className="dropdown-btn"
@@ -54,24 +57,20 @@ const Navbar = () => {
             </ul>
           )}
         </li>
-
         <li><Link to="/events" className={isActive('/events')}>Events</Link></li>
         <li><Link to="/aboutus" className={isActive('/aboutus')}>About Us</Link></li>
-
         {!user ? (
-          // Jika belum login, tampilkan link Sign In
           <li>
             <button className="btn">
-            <Link to="/signin" className={isActive('/signin')}>Sign In</Link>
+              <Link to="/signin" className={isActive('/signin')}>Sign In</Link>
             </button>
           </li>
         ) : (
-          // Jika sudah login, tampilkan link Profile
-          <li><Link to="/pengaturan" className={isActive('/pengaturan')}>Profile</Link></li>
+          <li>
+            <Link to="/pengaturan" className={isActive('/pengaturan')}>Profile</Link>
+          </li>
         )}
-
         {user && (
-          // Tombol untuk logout jika sudah login
           <li>
             <button className="btn" onClick={handleSignOut}>Sign Out</button>
           </li>

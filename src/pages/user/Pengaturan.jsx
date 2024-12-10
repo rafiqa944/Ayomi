@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../../Components/Navbar'; // Import Navbar component
-import Footer from '../../Components/Footer'; // Import Footer component
+import Navbar from '../../Components/Navbar';
+import Footer from '../../Components/Footer';
 import back from '../../assets/foto/back.png';
-import { Link, useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link, useNavigate } from 'react-router-dom';
 import { auth, db } from '../../config/firebaseConfig';
 import { getDoc, doc } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import './Pengaturan.css';
 
 const Pengaturan = () => {
@@ -13,12 +14,22 @@ const Pengaturan = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate('/landingpage'); // Redirect to Landing Page if user is not logged in
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup listener
+  }, [navigate]);
+
+  useEffect(() => {
     const fetchUserData = async () => {
       const user = auth.currentUser;
       if (user) {
         try {
-          // Ambil data user dari Firestore
-          const userDoc = await getDoc(doc(db, "users", user.uid));
+          const userDoc = await getDoc(doc(db, 'users', user.uid));
           if (userDoc.exists()) {
             setUserData(userDoc.data());
           } else {
@@ -27,14 +38,12 @@ const Pengaturan = () => {
         } catch (error) {
           console.error('Error fetching user data:', error);
         }
-      } else {
-        navigate('/signin'); // Arahkan ke halaman login jika user belum login
       }
       setIsLoading(false);
     };
 
     fetchUserData();
-  }, [navigate]);
+  }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -42,16 +51,12 @@ const Pengaturan = () => {
 
   return (
     <>
-      <Navbar /> {/* Add Navbar component */}
+      <Navbar />
       <div className="undo-container">
         <button className="undo-button" onClick={() => window.history.back()}>
-        <img 
-            src={back}
-            alt="undo-icon" 
-            className="undo-icon" 
-        />
+          <img src={back} alt="undo-icon" className="undo-icon" />
         </button>
-        </div>
+      </div>
       <div className="profile-page">
         <h1 className="page-title">Pengaturan</h1>
         {userData ? (
@@ -63,39 +68,19 @@ const Pengaturan = () => {
         ) : (
           <p>No user data available</p>
         )}
-
         <div className="profile-options">
-          {/* Gunakan Link untuk tombol-tombol */}
           <Link to="/ubahprofile" className="profile-link">
-            <button className="profile-button">
-              Ubah Profile
-              <span className="arrow">&gt;</span>
-            </button>
+            <button className="profile-button">Ubah Profile<span className="arrow">&gt;</span></button>
           </Link>
-
           <Link to="/ayomipoint" className="profile-link">
-            <button className="profile-button">
-              Ayomi Points
-              <span className="arrow">&gt;</span>
-            </button>
+            <button className="profile-button">Ayomi Points<span className="arrow">&gt;</span></button>
           </Link>
-
-          {/* <Link to="/donasiuser" className="profile-link">
-            <button className="profile-button">
-              Donasimu
-              <span className="arrow">&gt;</span>
-            </button>
-          </Link> */}
-
           <Link to="/signin" className="profile-link">
-            <button className="profile-button">
-              Sign Out
-              <span className="arrow">&gt;</span>
-            </button>
+            <button className="profile-button">Sign Out<span className="arrow">&gt;</span></button>
           </Link>
         </div>
       </div>
-      <Footer /> {/* Add Footer component */}
+      <Footer />
     </>
   );
 };
