@@ -164,14 +164,13 @@ const LandingPage = () => {
               kamu bisa mendaur ulang dengan ukuran kecil seperti satu botol plastik.
             </p>
           </div>
-          <div className="layanan-card"><Link to="/ayomipoint">
+          <div className="layanan-card">
             <img src={iconayomipoints} alt="Icon Ayomi Points" className="layanan-icon" />
             <h3>Ayomi Points</h3>
             <p>
               Ayomi mengkonversi sampahmu menjadi mata uang digital yang dapat kamu belanjakan,
               atau tukarkan dengan beragam produk menarik.
             </p>
-            </Link>
           </div>
         </div>
 
