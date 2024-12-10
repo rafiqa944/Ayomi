@@ -6,9 +6,9 @@ import Footer from '../../Components/Footer';
 
 const JenisMerek = () => {
   return (
-    <div>
+    <div className="page-jenis-merk">
     <Navbar/>
-    <div>
+    <div className="text-merk">
       <h1>Jenis - Jenis Merek</h1>
       <h4>Tidak ada data</h4>
     </div>
