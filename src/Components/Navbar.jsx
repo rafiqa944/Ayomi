@@ -24,13 +24,17 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     const auth = getAuth();
-    auth.signOut()
-      .then(() => {
-        navigate('/landingpage'); // Redirect to Landing Page after sign out
-      })
-      .catch((error) => {
-        console.error('Error during sign out:', error);
-      });
+    // Tampilkan dialog konfirmasi
+    const confirmSignOut = window.confirm('Are you sure you want to sign out?');
+    if (confirmSignOut) {
+      auth.signOut()
+        .then(() => {
+          navigate('/landingpage'); // Redirect to Landing Page after sign out
+        })
+        .catch((error) => {
+          console.error('Error during sign out:', error);
+        });
+    }
   };
 
   const isActive = (path) => location.pathname.startsWith(path) ? 'active' : '';
