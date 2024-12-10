@@ -1,7 +1,8 @@
 h1 {
     text-align: center; /* Untuk merapikan ke tengah */
-    margin-top: 120px; /* Atur jarak sesuai kebutuhan */
-    margin-bottom: 30px;
+    display: block !important;
+    padding-top: 100px;
+    visibility: visible !important; /* Pastikan elemen terlihat */
     font-size: 2em; /* Opsional, menyesuaikan ukuran */
   }  
 
@@ -10,7 +11,7 @@ h1 {
     margin-top: 20px; /* Tambahkan jarak ke atas dari h1 */
     font-size: 1.2em; /* Ukuran font opsional */
     font-weight: normal; /* Pastikan teks tidak tebal */
-    color: #000000; /* Warna teks opsional */
+    color: #344C3D; /* Warna teks opsional */
 }
 
 .image-grid {
