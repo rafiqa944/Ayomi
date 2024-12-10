@@ -18,6 +18,10 @@
     border-radius: 10px; /* Membuat sudut latar teks melengkung */
     padding-bottom: 120px;
   }
+
+  .text-overlay h1{
+    color: #fff;
+  }
       
 .activity-image {
     height: 110vh; /* Foto akan memenuhi tinggi layar */
@@ -107,6 +111,7 @@
     gap: 20px; /* Jarak antar elemen */
     padding: 2
     0px; /* Jarak keseluruhan dari tepi */
+    margin-bottom: 50px;
 }
 
 /* Gaya untuk setiap elemen */
