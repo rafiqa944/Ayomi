@@ -49,7 +49,7 @@ export default function SignIn() {
       <div className="right-section">
         <form className="signin-form" onSubmit={handleSignIn}>
           <div className="form-group">
-            <label htmlFor="email" className="form-label">Username</label>
+            <label htmlFor="email" className="form-label">Email</label>
             <input
               type="email"
               id="email"

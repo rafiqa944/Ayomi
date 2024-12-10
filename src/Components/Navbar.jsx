@@ -60,20 +60,27 @@ const Navbar = () => {
         <li><Link to="/events" className={isActive('/events')}>Events</Link></li>
         <li><Link to="/aboutus" className={isActive('/aboutus')}>About Us</Link></li>
         {!user ? (
-          <li>
-            <button className="btn">
-              <Link to="/signin" className={isActive('/signin')}>Sign In</Link>
-            </button>
-          </li>
+          <>
+            <li>
+              <button className="btn">
+                <Link to="/signin" className={isActive('/signin')}>Sign In</Link>
+              </button>
+            </li>
+            <li>
+              <button className="btn">
+                <Link to="/signin2" className={isActive('/signin2')}>Sign In Admin</Link>
+              </button>
+            </li>
+          </>
         ) : (
-          <li>
-            <Link to="/pengaturan" className={isActive('/pengaturan')}>Profile</Link>
-          </li>
-        )}
-        {user && (
-          <li>
-            <button className="btn" onClick={handleSignOut}>Sign Out</button>
-          </li>
+          <>
+            <li>
+              <Link to="/pengaturan" className={isActive('/pengaturan')}>Profile</Link>
+            </li>
+            <li>
+              <button className="btn" onClick={handleSignOut}>Sign Out</button>
+            </li>
+          </>
         )}
       </ul>
     </nav>
